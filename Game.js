@@ -11,7 +11,7 @@ window.onload = function () {
 	
 	/* Create images */
 	var imageBackground = new Image();
-	imageBackground.src = "img/background_001.jpg";
+	imageBackground.src = "img/background_002.jpg";
 
 	var imageGame = new Image();
 	imageGame.src = "http://br.bing.com/az/hprichbg/rb/ThreeSistersOre_ROW9616382495_1366x768.jpg";
