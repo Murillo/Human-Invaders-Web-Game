@@ -14,7 +14,7 @@ window.onload = function () {
 	imageBackground.src = "img/background_002.jpg";
 
 	var imageGame = new Image();
-	imageGame.src = "http://br.bing.com/az/hprichbg/rb/ThreeSistersOre_ROW9616382495_1366x768.jpg";
+	imageGame.src = "img/background_002.jpg";
 
     var pga = new StartLogo(c, context);
     pga.Logo();
