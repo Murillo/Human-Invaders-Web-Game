@@ -89,12 +89,7 @@ function Button() {
 		var img_x = (PosX - (ImgWidht / 2)) + ImgWidht;
 		var img_y = (PosY - (ImgHeight / 2)) + ImgHeight;
 	
-		if(pos_x <= x &&  img_x >= x && pos_y <= y && img_y >= y){
-			return true;
-		}else{
-			return false;
-		}
-		
+		return pos_x <= x &&  img_x >= x && pos_y <= y && img_y >= y;		
 	}
 
 }
