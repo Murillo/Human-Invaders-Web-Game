@@ -40,16 +40,6 @@ function init() {
 		scene.add(meshNasa);
 	});
 	
-	/*
-	var loaderSpace2 = new THREE.JSONLoader();
-	loaderSpace2.load("./Library/elements/Nasa.json", function (geometry, materials) {
-		var mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-		mesh.castShadow = true;
-		mesh.position = new THREE.Vector3(-10, 5, -30);
-		scene.add(mesh);
-	});
-	*/
-	
 
 	/* ********* Objects ***********  */
 	var axes = new THREE.AxisHelper(10);
