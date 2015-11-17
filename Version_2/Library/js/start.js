@@ -1,4 +1,4 @@
-var container, camera, controls, meshSpaceCraft, meshNasa;
+var container, camera, controls, meshSpaceCraft, meshNasa, countEnemies;
 var group, scene, renderer;
 var width = screen.width;
 var height = screen.height;
@@ -7,7 +7,8 @@ init();
 render();
 
 function init() {
-
+	
+	countEnemies = 0;
 	container = document.getElementById('container');
 	renderer = new THREE.WebGLRenderer({ antialias: true });
 	renderer.setSize(width, height);
@@ -31,15 +32,9 @@ function init() {
 		scene.add(meshSpaceCraft);
 	});
 	
-	
-	var loaderSpace1 = new THREE.JSONLoader();
-	loaderSpace1.load("./Library/elements/Nasa.json", function (geometry, materials) {
-		meshNasa = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-		meshNasa.castShadow = true;
-		meshNasa.position = new THREE.Vector3(0, 0, -10);
-		scene.add(meshNasa);
-	});
-	
+	/* ********* Objects Enemies ********* */
+	createEnemy(new THREE.Vector3(0, 0, -15));
+	/* *****************************  */
 
 	/* ********* Objects ***********  */
 	var axes = new THREE.AxisHelper(10);
@@ -64,12 +59,32 @@ function render() {
 	requestAnimationFrame(render);
 	renderer.render(scene, camera);
 	controls.update();
+	
+	if (meshNasa != null){
+		meshNasa.position.z += 0.05;
+		if (meshNasa.position.z >= 10){
+			meshNasa.position = new THREE.Vector3(0, 0, -15);
+		}
+	}
 }
 
 function sleep( sleepDuration ){
     var now = new Date().getTime();
     while(new Date().getTime() < now + sleepDuration){  } 
 }
+
+function createEnemy(position)
+{
+	var loaderSpace1 = new THREE.JSONLoader();
+	loaderSpace1.load("./Library/elements/Nasa.json", function (geometry, materials) {
+		meshNasa = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
+		meshNasa.castShadow = true;
+		meshNasa.position = position;
+		scene.add(meshNasa);
+	});	
+	
+	countEnemies += 1;
+} 
 
 function getKey(event) {
     //  Left Arrow
