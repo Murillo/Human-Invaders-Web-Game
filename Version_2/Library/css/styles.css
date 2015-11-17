@@ -121,4 +121,15 @@ header {
 #modal .modal-header{
 	font-size: 16px;
 	font-weight: bolder;
+	height: 50px;
+}
+
+#modal .modal-header img{
+	cursor: pointer;
+}
+#modal .modal-header .modal-title{
+	float: left;
+}
+#modal .modal-header .modal-close{
+	float: right;
 }
