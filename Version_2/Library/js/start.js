@@ -1,4 +1,4 @@
-var container, camera, controls, meshSpaceCraft, meshNasa, countEnemies;
+var container, camera, controls, meshSpaceCraft, enemies;
 var group, scene, renderer;
 var width = screen.width;
 var height = screen.height;
@@ -8,7 +8,7 @@ render();
 
 function init() {
 	
-	countEnemies = 0;
+	enemies = [];
 	container = document.getElementById('container');
 	renderer = new THREE.WebGLRenderer({ antialias: true });
 	renderer.setSize(width, height);
@@ -60,10 +60,18 @@ function render() {
 	renderer.render(scene, camera);
 	controls.update();
 	
-	if (meshNasa != null){
-		meshNasa.position.z += 0.05;
-		if (meshNasa.position.z >= 10){
-			meshNasa.position = new THREE.Vector3(0, 0, -15);
+	if (enemies.length > 0){
+		for	(var i = 0; i < enemies.length; i++){
+			enemies[i].position.z += 0.05;
+			if (enemies[i].position.z >= 10){
+				enemies[i].position = new THREE.Vector3(enemies[i].position.x, enemies[i].position.y, -15);
+				if (enemies.length < 2){
+					createEnemy(new THREE.Vector3(
+						Math.floor((Math.random() * 10) + 1), 
+						Math.floor((Math.random() * 10) + 1), 
+						Math.floor((Math.random() * 15) + 1) * -1));
+				}
+			}
 		}
 	}
 }
@@ -77,13 +85,12 @@ function createEnemy(position)
 {
 	var loaderSpace1 = new THREE.JSONLoader();
 	loaderSpace1.load("./Library/elements/Nasa.json", function (geometry, materials) {
-		meshNasa = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
+		var meshNasa = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
 		meshNasa.castShadow = true;
 		meshNasa.position = position;
+		enemies.push(meshNasa);
 		scene.add(meshNasa);
 	});	
-	
-	countEnemies += 1;
 } 
 
 function getKey(event) {
