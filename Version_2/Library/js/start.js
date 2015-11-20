@@ -50,7 +50,6 @@ function init() {
 
 	/* ********* OrbitControls ***********  */
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
-	
 	/* **************** Event that moves the spaceCraft ************ */
     document.addEventListener("keydown", getKey);
 }
