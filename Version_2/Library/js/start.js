@@ -65,11 +65,11 @@ function render() {
 			enemies[i].position.z += 0.05;
 			if (enemies[i].position.z >= 10){
 				enemies[i].position = new THREE.Vector3(enemies[i].position.x, enemies[i].position.y, -15);
-				if (enemies.length < 2){
+				if (enemies.length < 5){
 					createEnemy(new THREE.Vector3(
-						Math.floor((Math.random() * 10) + 1), 
-						Math.floor((Math.random() * 10) + 1), 
-						Math.floor((Math.random() * 15) + 1) * -1));
+						Math.floor((Math.random() * 20) + 1), 
+						Math.floor((Math.random() * 20) + 1), 
+						Math.floor((Math.random() * 40) + 1) * -1));
 				}
 			}
 		}
@@ -84,7 +84,7 @@ function sleep( sleepDuration ){
 function createEnemy(position)
 {
 	var loaderSpace1 = new THREE.JSONLoader();
-	loaderSpace1.load("./Library/elements/Nasa.json", function (geometry, materials) {
+	loaderSpace1.load("./Library/elements/space.json", function (geometry, materials) {
 		var meshNasa = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
 		meshNasa.castShadow = true;
 		meshNasa.position = position;
@@ -95,19 +95,25 @@ function createEnemy(position)
 
 function getKey(event) {
     //  Left Arrow
-    if (event.keyCode == 37) {
-        meshSpaceCraft.position.x -= 0.1;
+    if (event.keyCode == 65) {
+        meshSpaceCraft.position.x -= 0.2;
 
     // Up arrow 
-    } else if (event.keyCode == 38) {
-        meshSpaceCraft.position.y += 0.1;
+    } else if (event.keyCode == 87) {
+        meshSpaceCraft.position.y += 0.2;
 
     // Right Arrow 
-    } else if (event.keyCode == 39) {
-        meshSpaceCraft.position.x += 0.1;
+    } else if (event.keyCode == 68) {
+        meshSpaceCraft.position.x += 0.2;
 
     // Down Arrow
-    } else if (event.keyCode == 40) {
-        meshSpaceCraft.position.y -= 0.1;
-    }
+    } else if (event.keyCode == 83) {
+        meshSpaceCraft.position.y -= 0.2;
+    
+	} else if (event.keyCode == 81){
+		//meshSpaceCraft.position.y -= 0.1;
+		
+	} else if (event.keyCode == 69){
+		//meshSpaceCraft.position.y -= 0.1;
+	}
 }
