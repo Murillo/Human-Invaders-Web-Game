@@ -1,4 +1,5 @@
 var container, camera, controls, meshSpaceCraft, enemies;
+var spinLeft, spinRight;
 var group, scene, renderer;
 var width = screen.width;
 var height = screen.height;
@@ -7,7 +8,8 @@ init();
 render();
 
 function init() {
-	
+	spinLeft = false;
+	spinRight = false;
 	enemies = [];
 	container = document.getElementById('container');
 	renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -73,15 +75,31 @@ function render() {
 			}
 		}
 	}
+	
+	if (spinLeft) 	{
+		if (meshSpaceCraft.rotation.z >= 6) {
+			meshSpaceCraft.rotation.z = 0
+			spinLeft = false;	
+		}
+		else{
+			meshSpaceCraft.rotation.z += 0.05;
+			meshSpaceCraft.position.x -= 0.1;
+		}
+	}
+	
+	if (spinRight) 	{
+		if (meshSpaceCraft.rotation.z <= -6) {
+			meshSpaceCraft.rotation.z = 0
+			spinRight = false;	
+		}
+		else{
+			meshSpaceCraft.rotation.z -= 0.05;
+			meshSpaceCraft.position.x += 0.1;
+		}	
+	}
 }
 
-function sleep( sleepDuration ){
-    var now = new Date().getTime();
-    while(new Date().getTime() < now + sleepDuration){  } 
-}
-
-function createEnemy(position)
-{
+function createEnemy(position){
 	var loaderSpace1 = new THREE.JSONLoader();
 	loaderSpace1.load("./Library/elements/space.json", function (geometry, materials) {
 		var meshNasa = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
@@ -93,6 +111,7 @@ function createEnemy(position)
 } 
 
 function getKey(event) {
+
     //  Left Arrow
     if (event.keyCode == 65) {
         meshSpaceCraft.position.x -= 0.2;
@@ -108,11 +127,13 @@ function getKey(event) {
     // Down Arrow
     } else if (event.keyCode == 83) {
         meshSpaceCraft.position.y -= 0.2;
-    
-	} else if (event.keyCode == 81){
-		//meshSpaceCraft.position.y -= 0.1;
-		
-	} else if (event.keyCode == 69){
-		//meshSpaceCraft.position.y -= 0.1;
-	}
+    	
+	// Letter Q
+    } else if (event.keyCode == 81) {
+        spinLeft = true;
+	
+	// Letter E
+    } else if (event.keyCode == 69) {
+        spinRight = true;
+	} 
 }
