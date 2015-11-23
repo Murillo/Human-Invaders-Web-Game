@@ -20,7 +20,7 @@ function init() {
 
 	/* ********* Camera ***********  */
 	camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 20000);
-	camera.position.set(2, 2, 10);
+	camera.position.set(10, 5, 25);
 
 	scene = new THREE.Scene();
 	scene.add(camera);
@@ -35,20 +35,45 @@ function init() {
 	});
 	
 	/* ********* Objects Enemies ********* */
-	createEnemy(new THREE.Vector3(0, 0, -15));
-	/* *****************************  */
+	createEnemy(new THREE.Vector3(-10, 0, -25));
+	/* ***************************** */
 
-	/* ********* Objects ***********  */
+	/* ********* Objects *********** */
 	var axes = new THREE.AxisHelper(10);
 	scene.add(axes);
-	/* *****************************  */
+	/* ***************************** */
+	
+	/* ********* Particles *********** */
+    var particleCount = 3000;
+    var particles = new THREE.Geometry();
+    var material = new THREE.ParticleBasicMaterial({ 
+        color: 0xFFFFFF, 
+        size: 3,
+        map: THREE.ImageUtils.loadTexture("./Library/images/particle.png"),
+        blending: THREE.AdditiveBlending,
+        transparent: true 
+    });
+    
+    for (var p = 0; p < particleCount; p++) {
+        var pX = Math.random() * 500 - 250,
+            pY = Math.random() * 500 - 250,
+            pZ = Math.random() * 500 - 250,
+            particle = new THREE.Vertex(
+                new THREE.Vector3(pX, pY, pZ)
+            );
+        particles.vertices.push(particle);
+    }
+    var particleSystem = new THREE.ParticleSystem(particles, material);
+    particleSystem.sortParticles = true;
+    scene.add(particleSystem);
+	
 
 	/* ************* Spot Light *********  */
 	var spotLight = new THREE.SpotLight(0xffffff);
 	spotLight.position.set(-50, 0, 200);
 	spotLight.castShadow = true;
 	scene.add(spotLight)
-	/* *****************************  */
+	/* ***************************** */
 
 	/* ********* OrbitControls ***********  */
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -66,11 +91,11 @@ function render() {
 			enemies[i].position.z += 0.05;
 			if (enemies[i].position.z >= 10){
 				enemies[i].position = new THREE.Vector3(enemies[i].position.x, enemies[i].position.y, -15);
-				if (enemies.length < 5){
+				if (enemies.length < 6){
 					createEnemy(new THREE.Vector3(
-						Math.floor((Math.random() * 20) + 1), 
-						Math.floor((Math.random() * 20) + 1), 
-						Math.floor((Math.random() * 40) + 1) * -1));
+						Math.floor((Math.random() * 30) + 1), 
+						Math.floor((Math.random() * 30) + 1), 
+						Math.floor((Math.random() * 50) + 1) * -1));
 				}
 			}
 		}
