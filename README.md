@@ -1,4 +1,4 @@
-# Human Invaders for web
+# Human Invaders - Web Game
 
 Human Invaders for web is an experimental web game using Three.js.
 
@@ -13,4 +13,4 @@ In the sequence, run this command to start the container
 docker run -p 80:80 human-invaders
 ```
 
-Access in any moder browser the url `http://localhost`
+It is available in any moder browser via the url `http://localhost`
