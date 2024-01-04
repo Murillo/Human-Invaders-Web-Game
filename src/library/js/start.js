@@ -27,7 +27,7 @@ function init() {
 
 	/* ********* Objects ***********  */
 	var spaceCraft = new THREE.JSONLoader();
-	spaceCraft.load("./Library/elements/SpaceCraft.json", function (geometry, materials) {
+	spaceCraft.load("./library/elements/SpaceCraft.json", function (geometry, materials) {
 		meshSpaceCraft = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
 		meshSpaceCraft.castShadow = true;
 		meshSpaceCraft.position.set(0, 0, 0);
@@ -49,7 +49,7 @@ function init() {
     var material = new THREE.ParticleBasicMaterial({ 
         color: 0xFFFFFF, 
         size: 3,
-        map: THREE.ImageUtils.loadTexture("./Library/images/particle.png"),
+        map: THREE.ImageUtils.loadTexture("./library/images/particle.png"),
         blending: THREE.AdditiveBlending,
         transparent: true 
     });
@@ -126,7 +126,7 @@ function render() {
 
 function createEnemy(position){
 	var loaderSpace1 = new THREE.JSONLoader();
-	loaderSpace1.load("./Library/elements/space.json", function (geometry, materials) {
+	loaderSpace1.load("./library/elements/space.json", function (geometry, materials) {
 		var meshNasa = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
 		meshNasa.castShadow = true;
 		meshNasa.position = position;
