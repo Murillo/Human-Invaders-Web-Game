@@ -4,7 +4,8 @@
   "description": "3D web game experiment",
   "main": "index.js",
   "scripts": {
-    "start": "npx vite --port 3000 ./src",
+    "build": "npx vite build",
+    "start": "npx vite --port 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
