@@ -1,2 +1,8 @@
 # dependencies
 node_modules
+
+# publish folder
+dist
+
+# mac meta data folder info
+.DS_Store
