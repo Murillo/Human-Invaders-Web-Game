@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; 
- import SpaceCraftModel from './library/game/SpaceCraft.glb';
+import SpaceCraftModel from './library/game/SpaceCraft.glb';
+import { Game } from './library/Game';
 
 let container, camera, controls, meshSpaceCraft, spaceCraft, enemies;
 let spinLeft, spinRight;
@@ -11,6 +12,9 @@ const height = screen.height;
 
 init();
 render();
+
+const test = new Game();
+console.log(test.Update());
 
 function init() {
 	spinLeft = false;
