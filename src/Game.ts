@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; 
-import { IComponentConfig } from './IComponentConfig';
+import { SpaceCraftComponet } from './components/models/SpaceCraftComponent';
+import { ModelComponentBase } from './components/models/ModelComponentBase';
 
 export class Game {
 
@@ -11,16 +11,20 @@ export class Game {
     private camera: THREE.PerspectiveCamera;
     private width = screen.width;
     private height = screen.height;
-    private spaceCraft: any;
+
+    private components: ModelComponentBase[] = [];
 
     constructor(container: HTMLElement) {
         this.container = container;
         this.scene = new THREE.Scene();
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 20000);
+
+        const spaceCraftModel = new SpaceCraftComponet();
+        this.components.push(spaceCraftModel);
     }
 
-    public async load(spaceCraftModel: IComponentConfig[]) : Promise<void> {
+    public async load() : Promise<void> {
         /* ********* Initial Setup ***********  */
         this.renderer.setSize(this.width, this.height);
         this.renderer.setClearColor(THREE.Color.NAMES.darkblue, 1);
@@ -29,15 +33,11 @@ export class Game {
         this.camera.position.set(5, 2, 30);
         this.scene.add(this.camera);
     
-        // /* ********* Objects ***********  */
-        const loader = new GLTFLoader();
-        for (let i = 0; i < spaceCraftModel.length; i++) {
-            let gltf = await loader.loadAsync(spaceCraftModel[0].path);
-            this.spaceCraft = gltf.scene;
-            this.spaceCraft.position.set(0, 0, 0);
-            this.scene.add(this.spaceCraft);
-            console.log(this.spaceCraft);
+        /* ********* Models ***********  */
+        for (let i = 0; i < this.components.length; i++) {
+            await this.components[i].load(this.scene);
         }
+        /* ***************************** */
     
         /* ********* Object Axes *********** */
         const axesHelper = new THREE.AxesHelper(15);
@@ -52,7 +52,9 @@ export class Game {
     }
 
     private update() {
-        this.spaceCraft.rotation.y += 0.01;
+        for (let i = 0; i < this.components.length; i++) {
+            this.components[i].update();
+        }
     }
 
     public start() :void {

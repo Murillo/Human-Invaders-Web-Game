@@ -1,4 +1,4 @@
-export interface IComponentConfig {
+export interface IModelConfig {
     name: string, 
     path: string
 }
