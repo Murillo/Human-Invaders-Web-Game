@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SpaceCraftComponet } from './components/models/SpaceCraftComponent';
 import { ModelComponentBase } from './components/models/ModelComponentBase';
+import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent';
 
 export class Game {
 
@@ -22,6 +23,9 @@ export class Game {
 
         const spaceCraftModel = new SpaceCraftComponet();
         this.components.push(spaceCraftModel);
+
+        const spaceShuttle = new SpaceShuttleComponent();
+        this.components.push(spaceShuttle);
     }
 
     public async load() : Promise<void> {
