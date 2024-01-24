@@ -1,8 +1,8 @@
 import { models } from "./../../library/game/models.js"
-import { ModelComponentBase } from "./ModelComponentBase";
+import { SpaceComponentBase } from "./SpaceComponentBase.js";
 import { Scene } from "three";
 
-export class SpaceShuttleComponent extends ModelComponentBase{
+export class SpaceShuttleComponent extends SpaceComponentBase{
     private spaceShuttle: any;
 
     public async load(scene: Scene): Promise<void> {
