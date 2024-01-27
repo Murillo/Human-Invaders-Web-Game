@@ -12,6 +12,7 @@ export class Game {
     private camera: THREE.PerspectiveCamera;
     private width = screen.width;
     private height = screen.height;
+    private spaceCraft: SpaceCraftComponent;
 
     private components: SpaceComponentBase[] = [];
 
@@ -21,8 +22,7 @@ export class Game {
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 20000);
 
-        const spaceCraftModel = new SpaceCraftComponent();
-        this.components.push(spaceCraftModel);
+        this.spaceCraft = new SpaceCraftComponent();
 
         const spaceShuttle = new SpaceShuttleComponent();
         this.components.push(spaceShuttle);
@@ -38,6 +38,7 @@ export class Game {
         this.scene.add(this.camera);
     
         /* ********* Models ***********  */
+        await this.spaceCraft.load(this.scene);
         for (let i = 0; i < this.components.length; i++) {
             await this.components[i].load(this.scene);
         }
@@ -56,6 +57,7 @@ export class Game {
     }
 
     private update() {
+        this.spaceCraft.update();
         for (let i = 0; i < this.components.length; i++) {
             this.components[i].update();
         }

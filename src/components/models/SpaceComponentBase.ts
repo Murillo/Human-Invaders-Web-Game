@@ -4,13 +4,21 @@ import { IPosition } from "../interfaces/IPosition";
 
 export abstract class SpaceComponentBase extends GameComponentBase {
     private _positions: IPosition[] = [{ X: 0, Y: 0, Z: 0 }];
+    private _life: number = 1;
     protected loader = new GLTFLoader();
-    protected life: number = 1;
     protected speed: number = 1;
     protected isColision: boolean = false;
 
     constructor(state: boolean = false) {
         super(state);
+    }
+
+    public get life(): number {
+        return this._life;
+    }
+
+    public set life(life: number) {
+        this._life = life;
     }
 
     public get positions(): IPosition[] {
@@ -22,7 +30,7 @@ export abstract class SpaceComponentBase extends GameComponentBase {
     }
 
     public colision(objectPosition: IPosition[]): boolean {
-        //TODO: implement colision function
+        //TODO: implement colision
         return false;
     }
 
