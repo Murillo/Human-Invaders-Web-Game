@@ -57,27 +57,38 @@ export class SpaceCraftComponent extends SpaceComponentBase {
      * @returns {void}
      */
     private handleKeyDownCommand(event: KeyboardEvent): void {
+        const _maxRotationAngleNegative: number = -0.4;
+        const _maxRotationAnglePositive: number = 0.4;
         this._enableOriginalRotationMovement = false;
+        
         switch (event.key.toLowerCase()) {
             case 'w':
             case 'arrowup':
                 this._position.Y += this._speedMovement;
-                this._rotation.X -= this._rotationMovement;
+                if (this._rotation.X > _maxRotationAngleNegative) {
+                    this._rotation.X -= this._rotationMovement;
+                }
                 break;
             case 's':
             case 'arrowdown':
                 this._position.Y -= this._speedMovement;
-                this._rotation.X += this._rotationMovement;
+                if (this._rotation.X < _maxRotationAnglePositive) {
+                    this._rotation.X += this._rotationMovement;
+                }
                 break;
             case 'a':
             case 'arrowleft':
                 this._position.X -= this._speedMovement;
-                this._rotation.Z += this._rotationMovement;
+                if (this._rotation.Z < _maxRotationAnglePositive) {
+                    this._rotation.Z += this._rotationMovement;
+                }
                 break;
             case 'd':
             case 'arrowright':
                 this._position.X += this._speedMovement;
-                this._rotation.Z -= this._rotationMovement;
+                if (this._rotation.Z > _maxRotationAngleNegative) {
+                    this._rotation.Z -= this._rotationMovement;
+                }
                 break;
         }
     }
