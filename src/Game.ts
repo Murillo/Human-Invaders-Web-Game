@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SpaceCraftComponent } from './components/models/SpaceCraftComponent';
 import { SpaceComponentBase } from './components/models/SpaceComponentBase';
 import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent';
+import { StarsComponent } from './components/models/StarsComponent';
 
 export class Game {
 
@@ -13,7 +14,7 @@ export class Game {
     private width = screen.width;
     private height = screen.height;
     private spaceCraft: SpaceCraftComponent;
-
+    private stars: StarsComponent
     private components: SpaceComponentBase[] = [];
 
     constructor(container: HTMLElement) {
@@ -23,6 +24,7 @@ export class Game {
         this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 20000);
 
         this.spaceCraft = new SpaceCraftComponent();
+        this.stars = new StarsComponent();
 
         const spaceShuttle = new SpaceShuttleComponent();
         this.components.push(spaceShuttle);
@@ -39,6 +41,7 @@ export class Game {
     
         /* ********* Models ***********  */
         await this.spaceCraft.load(this.scene);
+        await this.stars.load(this.scene);
         for (let i = 0; i < this.components.length; i++) {
             await this.components[i].load(this.scene);
         }

@@ -1,4 +1,5 @@
 import { Scene } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 /**
  * Abstract base class for game components.
@@ -7,6 +8,7 @@ import { Scene } from "three";
  */
 export abstract class GameComponentBase {
     protected state: boolean;
+    protected loader = new GLTFLoader();
 
     /**
      * Construtor for the GameComponentBase class
