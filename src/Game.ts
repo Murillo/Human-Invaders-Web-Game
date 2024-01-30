@@ -33,7 +33,7 @@ export class Game {
     public async load() : Promise<void> {
         /* ********* Initial Setup ***********  */
         this.renderer.setSize(this.width, this.height);
-        this.renderer.setClearColor(THREE.Color.NAMES.darkblue, 1);
+        this.renderer.setClearColor("#191644");
         this.renderer.shadowMap.enabled = true;
         this.container.appendChild(this.renderer.domElement);
         this.camera.position.set(5, 2, 30);
