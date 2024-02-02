@@ -4,6 +4,7 @@ import { SpaceCraftComponent } from './components/models/SpaceCraftComponent';
 import { SpaceComponentBase } from './components/models/SpaceComponentBase';
 import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent';
 import { StarsComponent } from './components/models/StarsComponent';
+import { Random } from './util/Random';
 
 export class Game {
 
@@ -26,7 +27,7 @@ export class Game {
         this.spaceCraft = new SpaceCraftComponent();
         this.stars = new StarsComponent();
 
-        const spaceShuttle = new SpaceShuttleComponent();
+        const spaceShuttle = new SpaceShuttleComponent(new THREE.Vector3(0, 5, -15));
         this.components.push(spaceShuttle);
     }
 
@@ -40,10 +41,20 @@ export class Game {
         this.scene.add(this.camera);
     
         /* ********* Models ***********  */
+        const limitsPositionEnemy = [
+            new THREE.Vector3(-10, -10, -40),
+            new THREE.Vector3(10, 15, -20),
+        ];
         await this.spaceCraft.load(this.scene);
         await this.stars.load(this.scene);
-        for (let i = 0; i < this.components.length; i++) {
-            await this.components[i].load(this.scene);
+        for (let i = 0; i < 5; i++) {
+            const position = new THREE.Vector3(
+                Random.getNumber(limitsPositionEnemy[0].x, limitsPositionEnemy[1].x),
+                Random.getNumber(limitsPositionEnemy[0].y, limitsPositionEnemy[1].y),
+                Random.getNumber(limitsPositionEnemy[0].z, limitsPositionEnemy[1].z));
+            const spaceShuttle = new SpaceShuttleComponent(position);
+            await spaceShuttle.load(this.scene);
+            this.components.push(spaceShuttle);
         }
         /* ***************************** */
     
