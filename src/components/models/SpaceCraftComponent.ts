@@ -1,20 +1,19 @@
 import { AnimationBase } from "../animations/AnimationBase";
+import { models } from "./../../library/game/models"
+import { SpaceComponentBase } from "./SpaceComponentBase";
 import { SpaceCraftDownRotationAnimation } from "../animations/SpaceCraftDownRotationAnimation";
 import { SpaceCraftLeftRotationAnimation } from "../animations/SpaceCraftLeftRotationAnimation";
 import { SpaceCraftRightRotationAnimation } from "../animations/SpaceCraftRightRotationAnimation";
 import { SpaceCraftTopRotationAnimation } from "../animations/SpaceCraftTopRotationAnimation";
-import { IPosition } from "../interfaces/IPosition";
-import { models } from "./../../library/game/models"
-import { SpaceComponentBase } from "./SpaceComponentBase";
-import { Euler, Group, Object3DEventMap, Scene } from "three";
+import { Euler, Group, Object3DEventMap, Scene, Vector3 } from "three";
 
 /**
  * Class to represent the space craft model and its animations, such as position, rotation, etc.
  */
 export class SpaceCraftComponent extends SpaceComponentBase {
-    private _spaceCraft: Group<Object3DEventMap> | undefined;
-    private _position: IPosition = { X: 0, Y: 0, Z: 0 };
-    private _rotation: IPosition = { X: 0, Y: 0, Z: 0 };
+    private _spaceCraft: Group<Object3DEventMap> = new Group();
+    private _position: Vector3 = new Vector3(0, 0, 0);
+    private _rotation: Vector3 = new Vector3(0, 0, 0);
     private _speedMovement: number = 0.2;
     private _rotationMovement: number = 0.05;
     private _enableOriginalRotationMovement: boolean = true;
@@ -23,7 +22,7 @@ export class SpaceCraftComponent extends SpaceComponentBase {
     public async load(scene: Scene) : Promise<void> {
         const gltf = await this.loader.loadAsync(models['SpaceCraft'].path);
         this._spaceCraft = gltf.scene;
-        this._spaceCraft.position.set(this._position.X, this._position.Y, this._position.Z);
+        this._spaceCraft.position.set(this._position.x, this._position.y, this._position.z);
         scene.add(this._spaceCraft);
 
         this._animationModel = [
@@ -38,15 +37,15 @@ export class SpaceCraftComponent extends SpaceComponentBase {
     }
 
     public update(): void {
-        this._spaceCraft?.position.set(this._position.X, this._position.Y, this._position.Z);
-        this._spaceCraft?.rotation.set(this._rotation.X, this._rotation.Y, this._rotation.Z);
+        this._spaceCraft.position.set(this._position.x, this._position.y, this._position.z);
+        this._spaceCraft.rotation.set(this._rotation.x, this._rotation.y, this._rotation.z);
 
         if (this._enableOriginalRotationMovement) {
             this._animationModel.forEach(animation => {
-                const newRotationAngle = animation.update<Euler>(this._spaceCraft as Group<Object3DEventMap>);
-                this._rotation.X = newRotationAngle.x;
-                this._rotation.Y = newRotationAngle.y;
-                this._rotation.Z = newRotationAngle.z;
+                const newRotationAngle = animation.update<Euler>(this._spaceCraft);
+                this._rotation.x = newRotationAngle.x;
+                this._rotation.y = newRotationAngle.y;
+                this._rotation.z = newRotationAngle.z;
             });
         }
     }
@@ -64,30 +63,30 @@ export class SpaceCraftComponent extends SpaceComponentBase {
         switch (event.key.toLowerCase()) {
             case 'w':
             case 'arrowup':
-                this._position.Y += this._speedMovement;
-                if (this._rotation.X > _maxRotationAngleNegative) {
-                    this._rotation.X -= this._rotationMovement;
+                this._position.y += this._speedMovement;
+                if (this._rotation.x > _maxRotationAngleNegative) {
+                    this._rotation.x -= this._rotationMovement;
                 }
                 break;
             case 's':
             case 'arrowdown':
-                this._position.Y -= this._speedMovement;
-                if (this._rotation.X < _maxRotationAnglePositive) {
-                    this._rotation.X += this._rotationMovement;
+                this._position.y -= this._speedMovement;
+                if (this._rotation.x < _maxRotationAnglePositive) {
+                    this._rotation.x += this._rotationMovement;
                 }
                 break;
             case 'a':
             case 'arrowleft':
-                this._position.X -= this._speedMovement;
-                if (this._rotation.Z < _maxRotationAnglePositive) {
-                    this._rotation.Z += this._rotationMovement;
+                this._position.x -= this._speedMovement;
+                if (this._rotation.z < _maxRotationAnglePositive) {
+                    this._rotation.z += this._rotationMovement;
                 }
                 break;
             case 'd':
             case 'arrowright':
-                this._position.X += this._speedMovement;
-                if (this._rotation.Z > _maxRotationAngleNegative) {
-                    this._rotation.Z -= this._rotationMovement;
+                this._position.x += this._speedMovement;
+                if (this._rotation.z > _maxRotationAngleNegative) {
+                    this._rotation.z -= this._rotationMovement;
                 }
                 break;
         }
