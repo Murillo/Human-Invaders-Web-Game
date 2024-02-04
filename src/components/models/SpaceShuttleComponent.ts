@@ -6,7 +6,6 @@ import { Group, Object3DEventMap, Scene, Vector3 } from "three";
  * Class to represent the earth space shuttle model and its animations, such as position, rotation, etc.
  */
 export class SpaceShuttleComponent extends SpaceComponentBase{
-    private _spaceShuttle: Group<Object3DEventMap> = new Group();
     private _position: Vector3;
     
     /**
@@ -20,12 +19,16 @@ export class SpaceShuttleComponent extends SpaceComponentBase{
 
     public async load(scene: Scene): Promise<void> {
         const gltf = await this.loader.loadAsync(models['SpaceShuttle'].path);
-        this._spaceShuttle = gltf.scene;
-        this._spaceShuttle.position.set(this._position.x, this._position.y, this._position.z);
-        scene.add(this._spaceShuttle);
+        this.object = gltf.scene;
+        this.object.position.set(this._position.x, this._position.y, this._position.z);
+        scene.add(this.object);
     }
     
     public update(): void {
-        this._spaceShuttle.position.z += 0.05;
+        this.object.position.z += 0.05;
+    }
+
+    public collision(modelGroup: THREE.Group): boolean {
+        return false;
     }
 }

@@ -1,17 +1,16 @@
 import { AnimationBase } from "../animations/AnimationBase";
-import { models } from "./../../library/game/models"
+import { models } from "../../library/game/models"
 import { SpaceComponentBase } from "./SpaceComponentBase";
 import { SpaceCraftDownRotationAnimation } from "../animations/SpaceCraftDownRotationAnimation";
 import { SpaceCraftLeftRotationAnimation } from "../animations/SpaceCraftLeftRotationAnimation";
 import { SpaceCraftRightRotationAnimation } from "../animations/SpaceCraftRightRotationAnimation";
 import { SpaceCraftTopRotationAnimation } from "../animations/SpaceCraftTopRotationAnimation";
-import { Euler, Group, Object3DEventMap, Scene, Vector3 } from "three";
+import { Euler, Group, Object3DEventMap, Scene, Vector3, Box3 } from "three";
 
 /**
  * Class to represent the space craft model and its animations, such as position, rotation, etc.
  */
-export class SpaceCraftComponent extends SpaceComponentBase {
-    private _spaceCraft: Group<Object3DEventMap> = new Group();
+export class SpaceAlienComponent extends SpaceComponentBase {
     private _position: Vector3 = new Vector3(0, 0, 0);
     private _rotation: Vector3 = new Vector3(0, 0, 0);
     private _speedMovement: number = 0.2;
@@ -21,9 +20,9 @@ export class SpaceCraftComponent extends SpaceComponentBase {
 
     public async load(scene: Scene) : Promise<void> {
         const gltf = await this.loader.loadAsync(models['SpaceCraft'].path);
-        this._spaceCraft = gltf.scene;
-        this._spaceCraft.position.set(this._position.x, this._position.y, this._position.z);
-        scene.add(this._spaceCraft);
+        this.object = gltf.scene;
+        this.object.position.set(this._position.x, this._position.y, this._position.z);
+        scene.add(this.object);
 
         this._animationModel = [
             new SpaceCraftLeftRotationAnimation(),
@@ -37,17 +36,33 @@ export class SpaceCraftComponent extends SpaceComponentBase {
     }
 
     public update(): void {
-        this._spaceCraft.position.set(this._position.x, this._position.y, this._position.z);
-        this._spaceCraft.rotation.set(this._rotation.x, this._rotation.y, this._rotation.z);
+        this.object.position.set(this._position.x, this._position.y, this._position.z);
+        this.object.rotation.set(this._rotation.x, this._rotation.y, this._rotation.z);
 
         if (this._enableOriginalRotationMovement) {
             this._animationModel.forEach(animation => {
-                const newRotationAngle = animation.update<Euler>(this._spaceCraft);
+                const newRotationAngle = animation.update<Euler>(this.object);
                 this._rotation.x = newRotationAngle.x;
                 this._rotation.y = newRotationAngle.y;
                 this._rotation.z = newRotationAngle.z;
             });
         }
+    }
+
+    public collision(modelGroup: Group): boolean {
+        this.object.children.forEach(spaceAlien3D => {
+            modelGroup.children.forEach(model3D => {
+                const alienBox = new Box3().setFromObject(spaceAlien3D);
+                const targetBox = new Box3().setFromObject(model3D);
+                const isCollision = alienBox.intersectsBox(targetBox);
+                if (isCollision) {
+                    this.life -= 0.1;
+                    console.log('Space Alien Life: ', this.life);
+                }
+                return isCollision;
+            });
+        });
+        return false;
     }
 
     /**

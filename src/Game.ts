@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { SpaceCraftComponent } from './components/models/SpaceCraftComponent';
+import { SpaceAlienComponent } from './components/models/SpaceAlienComponent';
 import { SpaceComponentBase } from './components/models/SpaceComponentBase';
 import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent';
 import { StarsComponent } from './components/models/StarsComponent';
@@ -14,7 +14,7 @@ export class Game {
     private camera: THREE.PerspectiveCamera;
     private width = screen.width;
     private height = screen.height;
-    private spaceCraft: SpaceCraftComponent;
+    private spaceCraft: SpaceAlienComponent;
     private stars: StarsComponent
     private components: SpaceComponentBase[] = [];
 
@@ -24,7 +24,7 @@ export class Game {
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 20000);
 
-        this.spaceCraft = new SpaceCraftComponent();
+        this.spaceCraft = new SpaceAlienComponent();
         this.stars = new StarsComponent();
 
         const spaceShuttle = new SpaceShuttleComponent(new THREE.Vector3(0, 5, -15));
@@ -74,6 +74,7 @@ export class Game {
         this.spaceCraft.update();
         for (let i = 0; i < this.components.length; i++) {
             this.components[i].update();
+            this.spaceCraft.collision(this.components[i].model);
         }
     }
 
