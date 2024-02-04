@@ -21,6 +21,10 @@ export abstract class SpaceComponentBase extends GameComponentBase {
         this._life = life;
     }
 
+    public get isAlive(): boolean {
+        return this._life > 0;
+    }
+
     public get positions(): IPosition[] {
         return this._positions;
     }

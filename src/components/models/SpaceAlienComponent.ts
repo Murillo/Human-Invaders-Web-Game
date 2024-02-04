@@ -55,9 +55,13 @@ export class SpaceAlienComponent extends SpaceComponentBase {
                 const alienBox = new Box3().setFromObject(spaceAlien3D);
                 const targetBox = new Box3().setFromObject(model3D);
                 const isCollision = alienBox.intersectsBox(targetBox);
-                if (isCollision) {
-                    this.life -= 0.1;
-                    console.log('Space Alien Life: ', this.life);
+                if (isCollision && this.isAlive) {
+                    this.life -= 0.005; //life decrease due to collision
+                    console.log('Space Alien Life: ', Math.abs(this.life * 100));
+
+                    // Update the life progress bar
+                    const lifeScreenElement = document.getElementById('life') as HTMLProgressElement;
+                    lifeScreenElement.value = Math.abs(this.life * 100);
                 }
                 return isCollision;
             });
