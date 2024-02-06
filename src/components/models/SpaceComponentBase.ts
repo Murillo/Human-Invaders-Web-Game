@@ -1,9 +1,8 @@
-import { Group, Object3DEventMap } from "three";
+import { Group, Object3DEventMap, Vector3 } from "three";
 import { GameComponentBase } from "../GameComponentBase";
-import { IPosition } from "../interfaces/IPosition";
 
 export abstract class SpaceComponentBase extends GameComponentBase {
-    private _positions: IPosition[] = [{ X: 0, Y: 0, Z: 0 }];
+    private _positions: Vector3 = new Vector3(0, 0, 0);
     private _life: number = 1;
     protected object: Group<Object3DEventMap> = new Group();
     protected speed: number = 1;
@@ -25,11 +24,11 @@ export abstract class SpaceComponentBase extends GameComponentBase {
         return this._life > 0;
     }
 
-    public get positions(): IPosition[] {
+    public get positions(): Vector3 {
         return this._positions;
     }
 
-    public set positions(positions: IPosition[]) {
+    public set positions(positions: Vector3) {
         this._positions = positions;
     }
 
