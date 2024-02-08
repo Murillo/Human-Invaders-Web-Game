@@ -6,11 +6,12 @@ import { SpaceCraftLeftRotationAnimation } from "../animations/SpaceCraftLeftRot
 import { SpaceCraftRightRotationAnimation } from "../animations/SpaceCraftRightRotationAnimation";
 import { SpaceCraftTopRotationAnimation } from "../animations/SpaceCraftTopRotationAnimation";
 import { Euler, Group, Object3DEventMap, Scene, Vector3, Box3 } from "three";
+import { ICollision } from "../interfaces/ICollision";
 
 /**
  * Class to represent the space craft model and its animations, such as position, rotation, etc.
  */
-export class SpaceAlienComponent extends SpaceComponentBase {
+export class SpaceAlienComponent extends SpaceComponentBase implements ICollision{
     private _position: Vector3 = new Vector3(0, 0, 0);
     private _rotation: Vector3 = new Vector3(0, 0, 0);
     private _speedMovement: number = 0.2;

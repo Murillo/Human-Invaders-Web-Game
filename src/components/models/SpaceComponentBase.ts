@@ -35,12 +35,4 @@ export abstract class SpaceComponentBase extends GameComponentBase {
     public get model(): Group<Object3DEventMap> {
         return this.object;
     }
-
-    /**
-     * Method to detect the colision between the model component and another object.
-     * @param {THREE.Group} modelGroup the model to detect the colision.
-     * @returns {Promise<boolean>} true if the colision is detected, false otherwise.
-     */
-    public abstract collision(modelGroup: THREE.Group): boolean;
-
 }

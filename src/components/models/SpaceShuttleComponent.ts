@@ -27,8 +27,4 @@ export class SpaceShuttleComponent extends SpaceComponentBase{
     public update(): void {
         this.object.position.z += 0.05;
     }
-
-    public collision(modelGroup: THREE.Group): boolean {
-        return false;
-    }
 }

@@ -54,10 +54,6 @@ export class TextComponent extends GameComponentBase {
         }
     }
 
-    public collision(modelGroup: Group): boolean {
-        throw new Error("Method not implemented.");
-    }
-
     /**
      * Method to enable the text component in the scene and add the animation to the text.
      * @param {boolean} enable true to enable the text, false otherwise.
