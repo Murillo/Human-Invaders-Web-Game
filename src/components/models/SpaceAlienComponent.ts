@@ -1,5 +1,4 @@
 import { AnimationBase } from "../animations/AnimationBase";
-import { models } from "../../library/game/models"
 import { SpaceComponentBase } from "./SpaceComponentBase";
 import { SpaceCraftDownRotationAnimation } from "../animations/SpaceCraftDownRotationAnimation";
 import { SpaceCraftLeftRotationAnimation } from "../animations/SpaceCraftLeftRotationAnimation";
@@ -7,6 +6,7 @@ import { SpaceCraftRightRotationAnimation } from "../animations/SpaceCraftRightR
 import { SpaceCraftTopRotationAnimation } from "../animations/SpaceCraftTopRotationAnimation";
 import { Euler, Group, Object3DEventMap, Scene, Vector3, Box3 } from "three";
 import { ICollision } from "../interfaces/ICollision";
+import { MODEL } from "../../library/game/assets"
 
 /**
  * Class to represent the space craft model and its animations, such as position, rotation, etc.
@@ -20,7 +20,7 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
     private _animationModel: AnimationBase[] = [];
 
     public async load(scene: Scene) : Promise<void> {
-        const gltf = await this.loader.loadAsync(models['SpaceCraft'].path);
+        const gltf = await this.loader.loadAsync(MODEL.spaceCraft.path);
         this.object = gltf.scene;
         this.object.position.set(this._position.x, this._position.y, this._position.z);
         scene.add(this.object);

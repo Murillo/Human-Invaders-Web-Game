@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GameComponentBase } from "../GameComponentBase";
-import { models } from "../../library/game/models";
+import { MODEL } from "../../library/game/assets";
 
 /**
  * Class to represent the stars model and its animations.
@@ -27,7 +27,7 @@ export class StarsComponent extends GameComponentBase {
 
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
         const textureLoader = new THREE.TextureLoader();
-        const particleTexture = await textureLoader.loadAsync(models['Stars'].path);
+        const particleTexture = await textureLoader.loadAsync(MODEL.stars.path);
         const material = new THREE.PointsMaterial({ map: particleTexture, transparent: true });
         this._particleSystem = new THREE.Points(geometry, material);
         scene.add(this._particleSystem);

@@ -3,6 +3,7 @@ import { GameComponentBase } from "../GameComponentBase";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import { Tween } from "@tweenjs/tween.js";
+import { FONTS } from "../../library/game/assets";
 
 export class TextComponent extends GameComponentBase {
     private _isLoaded: boolean = false;
@@ -28,7 +29,7 @@ export class TextComponent extends GameComponentBase {
 
     public async load(scene: Scene): Promise<void> {
         this._scene = scene;
-        const font = await new FontLoader().loadAsync('https://cdn.rawgit.com/mrdoob/three.js/master/examples/fonts/helvetiker_regular.typeface.json');
+        const font = await new FontLoader().loadAsync(FONTS.helvetiker);
         const geometry = new TextGeometry(this._text, {
             font: font,
             size: this._size,
