@@ -14,8 +14,8 @@ export class Game {
     private scene: THREE.Scene;
     private renderer: THREE.WebGLRenderer;
     private camera: THREE.PerspectiveCamera;
-    private width = screen.width;
-    private height = screen.height;
+    private width = window.innerWidth;
+    private height = window.innerHeight;
     private spaceCraft: SpaceAlienComponent;
     private stars: StarsComponent
     private components: SpaceComponentBase[] = [];
