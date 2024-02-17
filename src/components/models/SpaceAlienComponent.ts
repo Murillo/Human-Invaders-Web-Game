@@ -18,6 +18,7 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
     private _rotationMovement: number = 0.05;
     private _enableOriginalRotationMovement: boolean = true;
     private _animationModel: AnimationBase[] = [];
+    private _shots: number = 25;
 
     public async load(scene: Scene) : Promise<void> {
         const gltf = await this.loader.loadAsync(MODEL.spaceCraft.path);
@@ -31,6 +32,9 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
             new SpaceCraftTopRotationAnimation(),
             new SpaceCraftDownRotationAnimation()
         ];
+
+        const shotsNumber = document.getElementById('shots') as HTMLDivElement;
+        shotsNumber.innerHTML = this._shots.toString();
 
         window.addEventListener('keydown', this.handleKeyDownCommand.bind(this));
         window.addEventListener('keyup', this.handleKeyUpCommand.bind(this));
@@ -108,6 +112,14 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
                 if (this._rotation.z > _maxRotationAngleNegative) {
                     this._rotation.z -= this._rotationMovement;
                 }
+                break;
+            case ' ':
+                if (this._shots <= 0) {
+                    return;
+                }
+                const shotsNumber = document.getElementById('shots') as HTMLDivElement;
+                this._shots -= 1;
+                shotsNumber.innerHTML = (this._shots).toString();
                 break;
         }
     }
