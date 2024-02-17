@@ -64,8 +64,11 @@ export class Game {
         /* ***************************** */
     
         /* ********* Object Axes *********** */
-        const axesHelper = new THREE.AxesHelper(15);
-        this.scene.add(axesHelper);
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.has('axes')) {
+            const axesHelper = new THREE.AxesHelper(15);
+            this.scene.add(axesHelper);
+        }
         /* ***************************** */
         
         /* ************ Light ************** */
