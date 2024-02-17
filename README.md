@@ -4,6 +4,8 @@ Human Invaders for web is an experimental web game using Three.js.
 
 [Press here to play the game](https://happy-rock-0df002703.4.azurestaticapps.net) (In progress)
 
+![Game demonstration](/images/game_first_scene.gif)
+
 ## Status
 ![Build](https://github.com/Murillo/Human-Invaders-Web-Game/actions/workflows/build.yml/badge.svg)
 
