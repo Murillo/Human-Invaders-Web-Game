@@ -2,8 +2,9 @@ import { Group, Object3DEventMap, Vector3 } from "three";
 import { GameComponentBase } from "../GameComponentBase";
 
 export abstract class SpaceComponentBase extends GameComponentBase {
-    private _positions: Vector3 = new Vector3(0, 0, 0);
     private _life: number = 1;
+    protected _rotation: Vector3 = new Vector3(0, 0, 0);
+    protected _positions: Vector3 = new Vector3(0, 0, 0);
     protected object: Group<Object3DEventMap> = new Group();
     protected speed: number = 1;
     protected isColision: boolean = false;

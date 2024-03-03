@@ -12,18 +12,17 @@ import { MODEL } from "../../library/game/assets"
  * Class to represent the space craft model and its animations, such as position, rotation, etc.
  */
 export class SpaceAlienComponent extends SpaceComponentBase implements ICollision{
-    private _position: Vector3 = new Vector3(0, 0, 0);
-    private _rotation: Vector3 = new Vector3(0, 0, 0);
     private _speedMovement: number = 0.2;
     private _rotationMovement: number = 0.05;
     private _enableOriginalRotationMovement: boolean = true;
     private _animationModel: AnimationBase[] = [];
-    private _shots: number = 25;
+    private _shotsAvailable: number = 50;
+    private _shotTriggered: boolean = false;
 
     public async load(scene: Scene) : Promise<void> {
         const gltf = await this.loader.loadAsync(MODEL.spaceCraft.path);
         this.object = gltf.scene;
-        this.object.position.set(this._position.x, this._position.y, this._position.z);
+        this.object.position.set(this._positions.x, this._positions.y, this._positions.z);
         scene.add(this.object);
 
         this._animationModel = [
@@ -34,14 +33,14 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
         ];
 
         const shotsNumber = document.getElementById('shots') as HTMLDivElement;
-        shotsNumber.innerHTML = this._shots.toString();
+        shotsNumber.innerHTML = this._shotsAvailable.toString();
 
         window.addEventListener('keydown', this.handleKeyDownCommand.bind(this));
         window.addEventListener('keyup', this.handleKeyUpCommand.bind(this));
     }
 
     public update(): void {
-        this.object.position.set(this._position.x, this._position.y, this._position.z);
+        this.object.position.set(this._positions.x, this._positions.y, this._positions.z);
         this.object.rotation.set(this._rotation.x, this._rotation.y, this._rotation.z);
 
         if (this._enableOriginalRotationMovement) {
@@ -75,6 +74,16 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
     }
 
     /**
+     * Method to check if the shot was triggered, and change the value to false.
+     * @returns {boolean}
+     */
+    public isShootTriggered(): boolean {
+        const wasShotTriggered = this._shotTriggered;
+        this._shotTriggered = false;
+        return wasShotTriggered;
+    }
+
+    /**
      * Method to handle the space craft movement via keyboard commands when the key is pressed.
      * @param {KeyboardEvent} event
      * @returns {void}
@@ -87,39 +96,40 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
         switch (event.key.toLowerCase()) {
             case 'w':
             case 'arrowup':
-                this._position.y += this._speedMovement;
+                this._positions.y += this._speedMovement;
                 if (this._rotation.x > _maxRotationAngleNegative) {
                     this._rotation.x -= this._rotationMovement;
                 }
                 break;
             case 's':
             case 'arrowdown':
-                this._position.y -= this._speedMovement;
+                this._positions.y -= this._speedMovement;
                 if (this._rotation.x < _maxRotationAnglePositive) {
                     this._rotation.x += this._rotationMovement;
                 }
                 break;
             case 'a':
             case 'arrowleft':
-                this._position.x -= this._speedMovement;
+                this._positions.x -= this._speedMovement;
                 if (this._rotation.z < _maxRotationAnglePositive) {
                     this._rotation.z += this._rotationMovement;
                 }
                 break;
             case 'd':
             case 'arrowright':
-                this._position.x += this._speedMovement;
+                this._positions.x += this._speedMovement;
                 if (this._rotation.z > _maxRotationAngleNegative) {
                     this._rotation.z -= this._rotationMovement;
                 }
                 break;
             case ' ':
-                if (this._shots <= 0) {
+                if (this._shotsAvailable <= 0) {
                     return;
                 }
                 const shotsNumber = document.getElementById('shots') as HTMLDivElement;
-                this._shots -= 1;
-                shotsNumber.innerHTML = (this._shots).toString();
+                this._shotsAvailable -= 1;
+                shotsNumber.innerHTML = (this._shotsAvailable).toString();
+                this._shotTriggered = true;
                 break;
         }
     }
@@ -139,6 +149,7 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
             case 'arrowleft':
             case 'd':
             case 'arrowright':
+            case ' ':
                 this._enableOriginalRotationMovement = true;
                 break;
         }

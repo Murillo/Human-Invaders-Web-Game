@@ -5,7 +5,7 @@ import { GameComponentBase } from "../GameComponentBase";
 /**
  * Class to represent the shot model and its animations triggered by some space comoponent.
  */
-export class ShotComponent extends GameComponentBase {
+export class ShootComponent extends GameComponentBase {
     private _position: Vector3;
     private _scene: Scene | undefined = undefined;
     private _sphere: Mesh = new Mesh();

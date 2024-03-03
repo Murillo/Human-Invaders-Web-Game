@@ -7,6 +7,7 @@ import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent
 import { StarsComponent } from './components/models/StarsComponent';
 import { TextComponent } from './components/models/TextComponent';
 import { Random } from './util/Random';
+import { ShootComponent } from './components/models/ShootComponent';
 
 export class Game {
 
@@ -20,6 +21,7 @@ export class Game {
     private stars: StarsComponent
     private components: SpaceComponentBase[] = [];
     private gameOverText: TextComponent;
+    private shootComponents: ShootComponent[] = [];
 
     constructor(container: HTMLElement) {
         this.container = container;
@@ -30,9 +32,7 @@ export class Game {
         this.spaceCraft = new SpaceAlienComponent();
         this.stars = new StarsComponent();
         this.gameOverText = new TextComponent('GAME\nOVER', new THREE.Vector3(0, 0, -30));
-
-        const spaceShuttle = new SpaceShuttleComponent(new THREE.Vector3(0, 5, -15));
-        this.components.push(spaceShuttle);
+        this.shootComponents = [];
     }
 
     public async load() : Promise<void> {
@@ -46,8 +46,8 @@ export class Game {
     
         /* ********* Models ***********  */
         const limitsPositionEnemy = [
-            new THREE.Vector3(-10, -10, -40),
-            new THREE.Vector3(10, 15, -20),
+            new THREE.Vector3(-15, -10, -40),
+            new THREE.Vector3(15, 15, -20),
         ];
         await this.spaceCraft.load(this.scene);
         await this.stars.load(this.scene);
@@ -78,9 +78,18 @@ export class Game {
         /* ***************************** */
     }
 
-    private update() {
+    private async update() {
         this.gameOverText.update();
         this.spaceCraft.update();
+
+        // Check if the space craft is shooting
+        if (this.spaceCraft.isShootTriggered()) {
+            const shoot = new ShootComponent(this.spaceCraft.positions.clone());
+            await shoot.load(this.scene);
+            this.shootComponents.push(shoot);
+        }
+
+        this.shootComponents.forEach(item => item.update());
         for (let i = 0; i < this.components.length; i++) {
             this.components[i].update();
             this.spaceCraft.collision(this.components[i].model);
