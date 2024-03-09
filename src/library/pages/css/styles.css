@@ -40,7 +40,7 @@ header {
 
 #container {
 	width: 600px;
-	height: 400px;
+	height: 600px;
 }
 
 .navbar {
@@ -132,4 +132,15 @@ header {
 }
 #modal .modal-header .modal-close{
 	float: right;
+}
+
+/* Game image start */
+.game-images{
+	background-image: url('../images/game-image-1.jpeg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+	background-position: center;
+    width: 100% !important;
+    height: calc(100vh - 50px) !important;
+	filter: brightness(75%);
 }
