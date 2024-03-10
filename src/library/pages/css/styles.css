@@ -107,9 +107,8 @@ header {
 #modal{
 	display: none;
 	border: 1px solid #151515;
-    width: 500px;
+    width: 600px;
     background: white;
-    height: 400px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -124,14 +123,15 @@ header {
 	height: 50px;
 }
 
-#modal .modal-header img{
-	cursor: pointer;
-}
 #modal .modal-header .modal-title{
 	float: left;
 }
 #modal .modal-header .modal-close{
 	float: right;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	background-image: url('../images/close.png'); ;
 }
 
 /* Game image start */
