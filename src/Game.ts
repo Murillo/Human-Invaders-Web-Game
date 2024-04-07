@@ -32,7 +32,6 @@ export class Game {
         this.spaceCraft = new SpaceAlienComponent();
         this.stars = new StarsComponent();
         this.gameOverText = new TextComponent('GAME\nOVER', new THREE.Vector3(0, 0, -30));
-        this.shootComponents = [];
     }
 
     public async load() : Promise<void> {
@@ -46,8 +45,8 @@ export class Game {
     
         /* ********* Models ***********  */
         const limitsPositionEnemy = [
-            new THREE.Vector3(-15, -10, -40),
-            new THREE.Vector3(15, 15, -20),
+            new THREE.Vector3(-15, -10, -100),
+            new THREE.Vector3(15, 15, -50),
         ];
         await this.spaceCraft.load(this.scene);
         await this.stars.load(this.scene);
@@ -92,9 +91,22 @@ export class Game {
         this.shootComponents.forEach(item => item.update());
         for (let i = 0; i < this.components.length; i++) {
             this.components[i].update();
+
+            // Check if the enemy hit the space craft
             this.spaceCraft.collision(this.components[i].model);
             if (!this.spaceCraft.isAlive) {
                 this.gameOverText.enable = true;
+            }
+
+            // Check if the shoot hit the enemy
+            for (let j = this.shootComponents.length - 1; j > 0; j--) {
+                if (this.shootComponents[j].collision(this.components[i].model)) {
+                    this.shootComponents[j].dispose();
+                    this.shootComponents.splice(j, 1);
+                    this.components[i].dispose();
+                    this.components.splice(i, 1);
+                    break;
+                }
             }
         }
     }

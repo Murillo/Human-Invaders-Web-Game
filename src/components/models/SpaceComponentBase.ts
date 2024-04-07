@@ -1,10 +1,12 @@
-import { Group, Object3DEventMap, Vector3 } from "three";
+import { Scene, Group, Object3DEventMap, Mesh, Vector3 } from "three";
 import { GameComponentBase } from "../GameComponentBase";
+import { IDispose } from "../interfaces/IDispose";
 
-export abstract class SpaceComponentBase extends GameComponentBase {
+export abstract class SpaceComponentBase extends GameComponentBase implements IDispose{
     private _life: number = 1;
     protected _rotation: Vector3 = new Vector3(0, 0, 0);
     protected _positions: Vector3 = new Vector3(0, 0, 0);
+    protected _scene: Scene | null | undefined = undefined;
     protected object: Group<Object3DEventMap> = new Group();
     protected speed: number = 1;
     protected isColision: boolean = false;
@@ -35,5 +37,15 @@ export abstract class SpaceComponentBase extends GameComponentBase {
 
     public get model(): Group<Object3DEventMap> {
         return this.object;
+    }
+
+    public dispose(): void {
+        this._scene?.remove(this.object);
+        this.object.traverse((child) => {
+            if (child instanceof Mesh) {
+                child.geometry.dispose();
+                child.material.dispose();
+            }
+        });
     }
 }

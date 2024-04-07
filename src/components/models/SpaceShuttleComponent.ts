@@ -1,11 +1,12 @@
 import { SpaceComponentBase } from "./SpaceComponentBase.js";
-import { Group, Object3DEventMap, Scene, Vector3 } from "three";
+import { Group, Object3DEventMap, Scene, Vector3, Mesh } from "three";
 import { MODEL } from "../../library/game/assets.js"
+import { IDispose } from "../interfaces/IDispose.js";
 
 /**
  * Class to represent the earth space shuttle model and its animations, such as position, rotation, etc.
  */
-export class SpaceShuttleComponent extends SpaceComponentBase{
+export class SpaceShuttleComponent extends SpaceComponentBase implements IDispose{
     private _position: Vector3;
     
     /**
@@ -18,10 +19,11 @@ export class SpaceShuttleComponent extends SpaceComponentBase{
     }
 
     public async load(scene: Scene): Promise<void> {
+        this._scene = scene;
         const gltf = await this.loader.loadAsync(MODEL.spaceShuttle.path);
         this.object = gltf.scene;
         this.object.position.set(this._position.x, this._position.y, this._position.z);
-        scene.add(this.object);
+        this._scene.add(this.object);
     }
     
     public update(): void {

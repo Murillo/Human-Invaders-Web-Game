@@ -1,13 +1,24 @@
-import { Mesh, MeshBasicMaterial, Scene, SphereGeometry, Vector3 } from "three";
+import { 
+    Raycaster, 
+    Group, 
+    Mesh, 
+    MeshBasicMaterial, 
+    Object3DEventMap, 
+    Scene, 
+    SphereGeometry, 
+    Vector3 
+} from "three";
 import { Tween } from "@tweenjs/tween.js";
 import { GameComponentBase } from "../GameComponentBase";
+import { ICollision } from "../interfaces/ICollision";
+import { IDispose } from "../interfaces/IDispose";
 
 /**
  * Class to represent the shot model and its animations triggered by some space comoponent.
  */
-export class ShootComponent extends GameComponentBase {
+export class ShootComponent extends GameComponentBase implements ICollision, IDispose {
     private _position: Vector3;
-    private _scene: Scene | undefined = undefined;
+    private _scene: Scene | null | undefined = undefined;
     private _sphere: Mesh = new Mesh();
     private _radius: number;
     private _widthSegments: number = 32;
@@ -49,5 +60,22 @@ export class ShootComponent extends GameComponentBase {
                 .start();
             this._removeFromScene = true;
         }
+    }
+
+    public collision(modelGroup: Group<Object3DEventMap>): boolean {
+        var raycaster = new Raycaster();
+        var origin = new Vector3();
+        origin.setFromMatrixPosition(this._sphere.matrixWorld);
+
+        var direction = new Vector3(0, 0, -1);
+        raycaster.set(origin, direction);
+
+        var intersects = raycaster.intersectObjects(modelGroup.children, true);
+        return intersects.length > 0;
+    }
+
+    public dispose(): void {
+        this._scene?.remove(this._sphere);
+        this._scene = null;
     }
 }
