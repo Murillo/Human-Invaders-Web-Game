@@ -105,6 +105,7 @@ export class Game {
                     this.shootComponents.splice(j, 1);
                     this.components[i].dispose();
                     this.components.splice(i, 1);
+                    this.spaceCraft.addScore(10);
                     break;
                 }
             }

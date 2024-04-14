@@ -18,6 +18,7 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
     private _animationModel: AnimationBase[] = [];
     private _shotsAvailable: number = 50;
     private _shotTriggered: boolean = false;
+    private _score: number = 0;
 
     public async load(scene: Scene) : Promise<void> {
         const gltf = await this.loader.loadAsync(MODEL.spaceCraft.path);
@@ -71,6 +72,17 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
             });
         });
         return false;
+    }
+
+    /**
+     * Method to add score to the player.
+     * @param {number} value
+     * @returns {void}
+     */
+    public addScore(value: number): void {
+        this._score += value;
+        const scoreNumber = document.getElementById('score') as HTMLDivElement;
+        scoreNumber.innerHTML = (this._score).toString();
     }
 
     /**
