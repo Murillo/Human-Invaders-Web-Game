@@ -12,7 +12,7 @@ import { MODEL } from "../../library/game/assets"
  * Class to represent the space craft model and its animations, such as position, rotation, etc.
  */
 export class SpaceAlienComponent extends SpaceComponentBase implements ICollision{
-    private _speedMovement: number = 0.2;
+    private _speedMovement: number = 0.5;
     private _rotationMovement: number = 0.05;
     private _enableOriginalRotationMovement: boolean = true;
     private _animationModel: AnimationBase[] = [];
