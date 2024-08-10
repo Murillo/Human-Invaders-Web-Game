@@ -1,10 +1,18 @@
-﻿* {
+﻿@media screen and (max-device-width: 600px) {
+    .navbar-nav{
+		display: none;
+	}
+	.navbar-brand {
+		display: none;
+	}
+}
+
+* {
 	margin: 0px;
 	padding: 0px;
 }
 
 /* Font */
-
 @font-face {
     font-family: Guardians;
     src: url("../font/Guardians.ttf");
