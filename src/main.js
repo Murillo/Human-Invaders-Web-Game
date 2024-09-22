@@ -1,14 +1,18 @@
 import { Game } from './Game';
 
 // Start the game
-var startButton = document.querySelector('.nav.navbar-nav li a');
+var startButton = document.querySelector('.container li a');
 startButton.addEventListener('click', function() {
 	var parentElement = startButton.parentNode;
 	parentElement.classList.add('active');
-    const htmlContainer = document.getElementById('container');
+    const htmlContainer = document.getElementById('game');
+    const menuPageContainer = document.getElementById('menuContainer');
+    const gamePageContainer = document.getElementById('gameContainer');
 	const game = new Game(htmlContainer);
 	game.load()
 		.then(() => {
+			menuPageContainer.classList.add('hidden');
+			gamePageContainer.removeAttribute('class');
 			closeModal();
 			game.start();
 			htmlContainer.removeAttribute('class');
@@ -17,7 +21,7 @@ startButton.addEventListener('click', function() {
 });
 
 // Open the about modal
-var aboutButton = document.querySelector('.nav.navbar-nav li a.open-modal');
+var aboutButton = document.querySelector('.container li a.open-modal');
 aboutButton.addEventListener('click', function() {
 	var modal = document.getElementById('modal');
 	modal.style.display = 'block';
