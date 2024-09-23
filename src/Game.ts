@@ -78,6 +78,7 @@ export class Game {
     }
 
     private async update() {
+        this.stars.update();
         this.gameOverText.update();
         this.spaceCraft.update();
 

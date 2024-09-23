@@ -36,8 +36,8 @@ export class StarsComponent extends GameComponentBase {
     public update(): void { 
         const positions = this._particleSystem.geometry.attributes.position.array as THREE.TypedArray;
         for (var i = 0; i < positions.length; i += 3) {
-            positions[i] += Math.random() * 0.01 - 0.01; // x
-            positions[i + 1] += Math.random() * 0.01 - 0.01; // y
+            positions[i] += Math.random() * 0.005 - 0.005; // x
+            positions[i + 1] += 0  // y
             positions[i + 2] += 0; // z
         }
         this._particleSystem.geometry.attributes.position.needsUpdate = true;
