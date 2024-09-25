@@ -22,6 +22,10 @@ export class Game {
     private components: SpaceComponentBase[] = [];
     private gameOverText: TextComponent;
     private shootComponents: ShootComponent[] = [];
+    private limitsPositionEnemy = [
+        new THREE.Vector3(-15, -10, -100),
+        new THREE.Vector3(15, 15, -50),
+    ];
 
     constructor(container: HTMLElement) {
         this.container = container;
@@ -44,20 +48,13 @@ export class Game {
         this.scene.add(this.camera);
     
         /* ********* Models ***********  */
-        const limitsPositionEnemy = [
-            new THREE.Vector3(-15, -10, -100),
-            new THREE.Vector3(15, 15, -50),
-        ];
         await this.spaceCraft.load(this.scene);
         await this.stars.load(this.scene);
         await this.gameOverText.load(this.scene);
-        for (let i = 0; i < 5; i++) {
-            const position = new THREE.Vector3(
-                Random.getNumber(limitsPositionEnemy[0].x, limitsPositionEnemy[1].x),
-                Random.getNumber(limitsPositionEnemy[0].y, limitsPositionEnemy[1].y),
-                Random.getNumber(limitsPositionEnemy[0].z, limitsPositionEnemy[1].z));
-            const spaceShuttle = new SpaceShuttleComponent(position);
-            await spaceShuttle.load(this.scene);
+        for (let i = 0; i < 2; i++) {
+            const spaceShuttle = await SpaceShuttleComponent.create(
+                this.scene, 
+                this.limitsPositionEnemy);
             this.components.push(spaceShuttle);
         }
         /* ***************************** */
@@ -107,6 +104,12 @@ export class Game {
                     this.components[i].dispose();
                     this.components.splice(i, 1);
                     this.spaceCraft.addScore(10);
+
+                    const newSpaceShuttle = await SpaceShuttleComponent.create(
+                        this.scene, 
+                        this.limitsPositionEnemy);
+                    this.components.push(newSpaceShuttle);
+
                     break;
                 }
             }

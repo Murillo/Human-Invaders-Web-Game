@@ -1,5 +1,6 @@
 import { SpaceComponentBase } from "./SpaceComponentBase.js";
 import { Group, Object3DEventMap, Scene, Vector3, Mesh } from "three";
+import { Random } from '../../util/Random.js';
 import { MODEL } from "../../library/game/assets.js"
 import { IDispose } from "../interfaces/IDispose.js";
 
@@ -28,5 +29,15 @@ export class SpaceShuttleComponent extends SpaceComponentBase implements IDispos
     
     public update(): void {
         this.object.position.z += 0.05;
+    }
+
+    public static async create(scene: Scene, limitPosition: THREE.Vector3[]): Promise<SpaceShuttleComponent>{
+        const position = new Vector3(
+            Random.getNumber(limitPosition[0].x, limitPosition[1].x),
+            Random.getNumber(limitPosition[0].y, limitPosition[1].y),
+            Random.getNumber(limitPosition[0].z, limitPosition[1].z));
+        const spaceShuttle = new SpaceShuttleComponent(position);
+        await spaceShuttle.load(scene);
+        return spaceShuttle;
     }
 }
