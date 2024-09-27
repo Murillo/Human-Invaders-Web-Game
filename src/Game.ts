@@ -21,7 +21,7 @@ export class Game {
     private components: SpaceComponentBase[] = [];
     private gameOverText: TextComponent;
     private shootComponents: ShootComponent[] = [];
-    private initialNumberEnemies: number = 0;
+    private initialNumberEnemies: number = 1;
     private speedIncreaseRate: number = 1.25;
     private limitsPositionEnemy = [
         new THREE.Vector3(-15, -10, -100),
