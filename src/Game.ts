@@ -6,7 +6,6 @@ import { SpaceComponentBase } from './components/models/SpaceComponentBase';
 import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent';
 import { StarsComponent } from './components/models/StarsComponent';
 import { TextComponent } from './components/models/TextComponent';
-import { Random } from './util/Random';
 import { ShootComponent } from './components/models/ShootComponent';
 
 export class Game {
@@ -22,6 +21,8 @@ export class Game {
     private components: SpaceComponentBase[] = [];
     private gameOverText: TextComponent;
     private shootComponents: ShootComponent[] = [];
+    private initialNumberEnemies: number = 0;
+    private speedIncreaseRate: number = 1.25;
     private limitsPositionEnemy = [
         new THREE.Vector3(-15, -10, -100),
         new THREE.Vector3(15, 15, -50),
@@ -51,7 +52,7 @@ export class Game {
         await this.spaceCraft.load(this.scene);
         await this.stars.load(this.scene);
         await this.gameOverText.load(this.scene);
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < this.initialNumberEnemies; i++) {
             const spaceShuttle = await SpaceShuttleComponent.create(
                 this.scene, 
                 this.limitsPositionEnemy);
@@ -101,13 +102,16 @@ export class Game {
                 if (this.shootComponents[j].collision(this.components[i].model)) {
                     this.shootComponents[j].dispose();
                     this.shootComponents.splice(j, 1);
+
+                    const nextSpaceSpeed = this.components[i].speed * this.speedIncreaseRate;
                     this.components[i].dispose();
                     this.components.splice(i, 1);
                     this.spaceCraft.addScore(10);
 
                     const newSpaceShuttle = await SpaceShuttleComponent.create(
                         this.scene, 
-                        this.limitsPositionEnemy);
+                        this.limitsPositionEnemy,
+                        nextSpaceSpeed);
                     this.components.push(newSpaceShuttle);
 
                     break;

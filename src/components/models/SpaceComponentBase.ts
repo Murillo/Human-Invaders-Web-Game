@@ -7,8 +7,8 @@ export abstract class SpaceComponentBase extends GameComponentBase implements ID
     protected _rotation: Vector3 = new Vector3(0, 0, 0);
     protected _positions: Vector3 = new Vector3(0, 0, 0);
     protected _scene: Scene | null | undefined = undefined;
+    protected _speed: number = 0;
     protected object: Group<Object3DEventMap> = new Group();
-    protected speed: number = 1;
     protected isColision: boolean = false;
 
     constructor(state: boolean = false) {
@@ -21,6 +21,14 @@ export abstract class SpaceComponentBase extends GameComponentBase implements ID
 
     public set life(life: number) {
         this._life = life;
+    }
+
+    public get speed(): number {
+        return this._speed;
+    }
+
+    public set speed(speed: number) {
+        this._speed = speed;
     }
 
     public get isAlive(): boolean {

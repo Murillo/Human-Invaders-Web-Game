@@ -14,9 +14,10 @@ export class SpaceShuttleComponent extends SpaceComponentBase implements IDispos
      * Constructor to create the space shuttle model.
      * @param {Vector3} position initial position of the space shuttle.
      */
-    constructor(position: Vector3 = new Vector3(0, 0, 0)) {
+    constructor(position: Vector3 = new Vector3(0, 0, 0), speed: number = 0.01) {
         super();
         this._position = position;
+        this._speed = speed;
     }
 
     public async load(scene: Scene): Promise<void> {
@@ -28,15 +29,15 @@ export class SpaceShuttleComponent extends SpaceComponentBase implements IDispos
     }
     
     public update(): void {
-        this.object.position.z += 0.05;
+        this.object.position.z += this._speed;
     }
 
-    public static async create(scene: Scene, limitPosition: THREE.Vector3[]): Promise<SpaceShuttleComponent>{
+    public static async create(scene: Scene, limitPosition: THREE.Vector3[], speed: number = 0.05): Promise<SpaceShuttleComponent>{
         const position = new Vector3(
             Random.getNumber(limitPosition[0].x, limitPosition[1].x),
             Random.getNumber(limitPosition[0].y, limitPosition[1].y),
             Random.getNumber(limitPosition[0].z, limitPosition[1].z));
-        const spaceShuttle = new SpaceShuttleComponent(position);
+        const spaceShuttle = new SpaceShuttleComponent(position, speed);
         await spaceShuttle.load(scene);
         return spaceShuttle;
     }
