@@ -23,6 +23,7 @@ export class Game {
     private shootComponents: ShootComponent[] = [];
     private initialNumberEnemies: number = 1;
     private speedIncreaseRate: number = 1.25;
+    private sceneLimit: THREE.Vector3 = new THREE.Vector3(0, 0, 10);
     private limitsPositionEnemy = [
         new THREE.Vector3(-15, -10, -100),
         new THREE.Vector3(15, 15, -50),
@@ -116,6 +117,11 @@ export class Game {
 
                     break;
                 }
+            }
+
+            // Check if enemy passed by player
+            if (this.components[i].positions.z >= this.sceneLimit.z) {
+                this.gameOverText.enable = true;
             }
         }
     }

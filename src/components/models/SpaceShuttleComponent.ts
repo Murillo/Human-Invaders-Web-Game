@@ -30,6 +30,7 @@ export class SpaceShuttleComponent extends SpaceComponentBase implements IDispos
     
     public update(): void {
         this.object.position.z += this._speed;
+        this.positions = this.object.position;
     }
 
     public static async create(scene: Scene, limitPosition: THREE.Vector3[], speed: number = 0.05): Promise<SpaceShuttleComponent>{
