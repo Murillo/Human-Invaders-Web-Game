@@ -397,6 +397,24 @@ ul li a:hover {
 	background-image: url('../images/close.png'); ;
 }
 
+@media (max-width: 768px) {
+	#modal {
+		width: 90vw;
+		max-width: 600px;
+		max-height: 85vh;
+		left: 50%;
+		top: 50%;
+		margin: 0;
+		transform: translate(-50%, -50%);
+		overflow-y: auto;
+	}
+
+	#modal .modal-header,
+	#modal .modal-body {
+		padding: 12px;
+	}
+}
+
 /* Game image start */
 .game-images{
 	background-image: url('../images/game-image-1.jpeg');
