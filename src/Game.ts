@@ -1,19 +1,19 @@
 import * as THREE from 'three';
 import * as TWEEN from '@tweenjs/tween.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SpaceAlienComponent } from './components/models/SpaceAlienComponent';
 import { SpaceComponentBase } from './components/models/SpaceComponentBase';
 import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent';
 import { StarsComponent } from './components/models/StarsComponent';
 import { TextComponent } from './components/models/TextComponent';
 import { ShootComponent } from './components/models/ShootComponent';
+import { CameraComponent } from './components/models/CameraComponent';
 
 export class Game {
 
     private container : HTMLElement;
     private scene: THREE.Scene;
     private renderer: THREE.WebGLRenderer;
-    private camera: THREE.PerspectiveCamera;
+    private cameraComponent: CameraComponent;
     private width = window.innerWidth;
     private height = window.innerHeight;
     private spaceCraft: SpaceAlienComponent;
@@ -33,11 +33,11 @@ export class Game {
         this.container = container;
         this.scene = new THREE.Scene();
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
-        this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 1000);
 
         this.spaceCraft = new SpaceAlienComponent();
         this.stars = new StarsComponent();
         this.gameOverText = new TextComponent('GAME\nOVER', new THREE.Vector3(0, 0, -30));
+        this.cameraComponent = new CameraComponent(() => this.spaceCraft.positions);
     }
 
     public async load() : Promise<void> {
@@ -46,8 +46,7 @@ export class Game {
         this.renderer.setClearColor("#191644");
         this.renderer.shadowMap.enabled = true;
         this.container.appendChild(this.renderer.domElement);
-        this.camera.position.set(5, 2, 30);
-        this.scene.add(this.camera);
+        await this.cameraComponent.load(this.scene);
     
         /* ********* Models ***********  */
         await this.spaceCraft.load(this.scene);
@@ -80,6 +79,7 @@ export class Game {
         this.stars.update();
         this.gameOverText.update();
         this.spaceCraft.update();
+        this.cameraComponent.update();
 
         // Check if the space craft is shooting
         if (this.spaceCraft.isShootTriggered()) {
@@ -128,7 +128,7 @@ export class Game {
 
     public start() :void {
         const render = () => {
-            this.renderer.render(this.scene, this.camera);
+            this.renderer.render(this.scene, this.cameraComponent.instance);
             this.update();  // Update game components such as spaceCraft, stars, etc.
             TWEEN.update(); // Update the tweening library
             requestAnimationFrame(render);
