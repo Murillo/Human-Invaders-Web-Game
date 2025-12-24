@@ -6,7 +6,8 @@ import { SpaceShuttleComponent } from './components/models/SpaceShuttleComponent
 import { StarsComponent } from './components/models/StarsComponent';
 import { TextComponent } from './components/models/TextComponent';
 import { ShootComponent } from './components/models/ShootComponent';
-import { CameraComponent } from './components/models/CameraComponent';
+import { CameraComponent, CameraMode } from './components/models/CameraComponent';
+import { Device } from './util/Device';
 
 export class Game {
 
@@ -46,7 +47,8 @@ export class Game {
         this.renderer.setClearColor("#191644");
         this.renderer.shadowMap.enabled = true;
         this.container.appendChild(this.renderer.domElement);
-        await this.cameraComponent.load(this.scene);
+        const initialCameraMode: CameraMode = Device.isMobileDevice() ? CameraMode.Top : CameraMode.Default;
+        await this.cameraComponent.load(this.scene, initialCameraMode);
     
         /* ********* Models ***********  */
         await this.spaceCraft.load(this.scene);
