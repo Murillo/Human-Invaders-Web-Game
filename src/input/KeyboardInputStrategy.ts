@@ -67,6 +67,11 @@ export class KeyboardInputStrategy implements InputStrategy {
     }
 
     private hasDirectionalInput(): boolean {
-        return this.hasAny(LEFT_KEYS) || this.hasAny(RIGHT_KEYS) || this.hasAny(UP_KEYS) || this.hasAny(DOWN_KEYS);
+        return (
+            this.hasAny(LEFT_KEYS) ||
+            this.hasAny(RIGHT_KEYS) ||
+            this.hasAny(UP_KEYS) ||
+            this.hasAny(DOWN_KEYS)
+        );
     }
 }

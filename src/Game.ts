@@ -11,6 +11,7 @@ import { Device } from './util/Device';
 import { InputStrategy } from './input/InputStrategy';
 import { KeyboardInputStrategy } from './input/KeyboardInputStrategy';
 import { PointerInputStrategy } from './input/PointerInputStrategy';
+import { Screen } from './util/Screen';
 
 export class Game {
     private container: HTMLElement;
@@ -56,7 +57,13 @@ export class Game {
         await this.cameraComponent.load(this.scene, initialCameraMode);
         this.inputStrategies = [
             new KeyboardInputStrategy(),
-            new PointerInputStrategy(this.renderer.domElement),
+            new PointerInputStrategy(this.renderer.domElement, () =>
+                Screen.getProjectedBoundsX(
+                    this.spaceCraft.model,
+                    this.cameraComponent.instance,
+                    this.renderer.domElement
+                )
+            ),
         ];
 
         /* ********* Models ***********  */
