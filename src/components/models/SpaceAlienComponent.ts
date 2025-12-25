@@ -12,7 +12,7 @@ import { MODEL } from '../../library/game/assets';
  * Class to represent the space craft model and its animations, such as position, rotation, etc.
  */
 export class SpaceAlienComponent extends SpaceComponentBase implements ICollision {
-    private _speedMovement: number = 0.5;
+    private _speedMovement: number = 0.25;
     private _rotationMovement: number = 0.05;
     private _enableOriginalRotationMovement: boolean = true;
     private _animationModel: AnimationBase[] = [];
@@ -35,9 +35,6 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
 
         const shotsNumber = document.getElementById('shots') as HTMLDivElement;
         shotsNumber.innerHTML = this._shotsAvailable.toString();
-
-        window.addEventListener('keydown', this.handleKeyDownCommand.bind(this));
-        window.addEventListener('keyup', this.handleKeyUpCommand.bind(this));
     }
 
     public update(): void {
@@ -97,101 +94,53 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
         return wasShotTriggered;
     }
 
-    /**
-     * Move the space craft horizontally based on a screen click/tap.
-     * Left clicks move left; right clicks move right.
-     * @param {'left' | 'right'} direction
-     */
-    public moveByClick(direction: 'left' | 'right'): void {
-        const _maxRotationAngleNegative: number = -0.4;
+    public moveLeft(): void {
         const _maxRotationAnglePositive: number = 0.4;
         this._enableOriginalRotationMovement = false;
-
-        if (direction === 'left') {
-            this._positions.x -= this._speedMovement;
-            if (this._rotation.z < _maxRotationAnglePositive) {
-                this._rotation.z += this._rotationMovement;
-            }
-        } else {
-            this._positions.x += this._speedMovement;
-            if (this._rotation.z > _maxRotationAngleNegative) {
-                this._rotation.z -= this._rotationMovement;
-            }
-        }
-        setTimeout(() => {
-            this._enableOriginalRotationMovement = true;
-        }, 120);
-    }
-
-    /**
-     * Method to handle the space craft movement via keyboard commands when the key is pressed.
-     * @param {KeyboardEvent} event
-     * @returns {void}
-     */
-    private handleKeyDownCommand(event: KeyboardEvent): void {
-        const _maxRotationAngleNegative: number = -0.4;
-        const _maxRotationAnglePositive: number = 0.4;
-        this._enableOriginalRotationMovement = false;
-
-        switch (event.key.toLowerCase()) {
-            case 'w':
-            case 'arrowup':
-                this._positions.y += this._speedMovement;
-                if (this._rotation.x > _maxRotationAngleNegative) {
-                    this._rotation.x -= this._rotationMovement;
-                }
-                break;
-            case 's':
-            case 'arrowdown':
-                this._positions.y -= this._speedMovement;
-                if (this._rotation.x < _maxRotationAnglePositive) {
-                    this._rotation.x += this._rotationMovement;
-                }
-                break;
-            case 'a':
-            case 'arrowleft':
-                this._positions.x -= this._speedMovement;
-                if (this._rotation.z < _maxRotationAnglePositive) {
-                    this._rotation.z += this._rotationMovement;
-                }
-                break;
-            case 'd':
-            case 'arrowright':
-                this._positions.x += this._speedMovement;
-                if (this._rotation.z > _maxRotationAngleNegative) {
-                    this._rotation.z -= this._rotationMovement;
-                }
-                break;
-            case ' ':
-                if (this._shotsAvailable <= 0) {
-                    return;
-                }
-                const shotsNumber = document.getElementById('shots') as HTMLDivElement;
-                this._shotsAvailable -= 1;
-                shotsNumber.innerHTML = this._shotsAvailable.toString();
-                this._shotTriggered = true;
-                break;
+        this._positions.x -= this._speedMovement;
+        if (this._rotation.z < _maxRotationAnglePositive) {
+            this._rotation.z += this._rotationMovement;
         }
     }
 
-    /**
-     * Method to handle the space craft movement via keyboard commands when the key is released.
-     * @param {KeyboardEvent} event
-     * @returns {void}
-     */
-    private handleKeyUpCommand(event: KeyboardEvent): void {
-        switch (event.key.toLowerCase()) {
-            case 'w':
-            case 'arrowup':
-            case 's':
-            case 'arrowdown':
-            case 'a':
-            case 'arrowleft':
-            case 'd':
-            case 'arrowright':
-            case ' ':
-                this._enableOriginalRotationMovement = true;
-                break;
+    public moveRight(): void {
+        const _maxRotationAngleNegative: number = -0.4;
+        this._enableOriginalRotationMovement = false;
+        this._positions.x += this._speedMovement;
+        if (this._rotation.z > _maxRotationAngleNegative) {
+            this._rotation.z -= this._rotationMovement;
         }
+    }
+
+    public moveUp(): void {
+        const _maxRotationAngleNegative: number = -0.4;
+        this._enableOriginalRotationMovement = false;
+        this._positions.y += this._speedMovement;
+        if (this._rotation.x > _maxRotationAngleNegative) {
+            this._rotation.x -= this._rotationMovement;
+        }
+    }
+
+    public moveDown(): void {
+        const _maxRotationAnglePositive: number = 0.4;
+        this._enableOriginalRotationMovement = false;
+        this._positions.y -= this._speedMovement;
+        if (this._rotation.x < _maxRotationAnglePositive) {
+            this._rotation.x += this._rotationMovement;
+        }
+    }
+
+    public stopMovement(): void {
+        this._enableOriginalRotationMovement = true;
+    }
+
+    public triggerShot(): void {
+        if (this._shotsAvailable <= 0) {
+            return;
+        }
+        const shotsNumber = document.getElementById('shots') as HTMLDivElement;
+        this._shotsAvailable -= 1;
+        shotsNumber.innerHTML = this._shotsAvailable.toString();
+        this._shotTriggered = true;
     }
 }

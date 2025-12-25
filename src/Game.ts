@@ -8,7 +8,9 @@ import { TextComponent } from './components/models/TextComponent';
 import { ShootComponent } from './components/models/ShootComponent';
 import { CameraComponent, CameraMode } from './components/models/CameraComponent';
 import { Device } from './util/Device';
-import { Screen } from './util/Screen';
+import { InputStrategy } from './input/InputStrategy';
+import { KeyboardInputStrategy } from './input/KeyboardInputStrategy';
+import { PointerInputStrategy } from './input/PointerInputStrategy';
 
 export class Game {
     private container: HTMLElement;
@@ -29,6 +31,7 @@ export class Game {
         new THREE.Vector3(-15, -10, -100),
         new THREE.Vector3(15, 15, -50),
     ];
+    private inputStrategies: InputStrategy[] = [];
 
     constructor(container: HTMLElement) {
         this.container = container;
@@ -47,14 +50,14 @@ export class Game {
         this.renderer.setClearColor('#191644');
         this.renderer.shadowMap.enabled = true;
         this.container.appendChild(this.renderer.domElement);
-        this.renderer.domElement.addEventListener('pointerdown', (event: PointerEvent): void => {
-            const isLeftSide = Screen.isLeftHalf(event, this.renderer.domElement);
-            this.spaceCraft.moveByClick(isLeftSide ? 'left' : 'right');
-        });
         const initialCameraMode: CameraMode = Device.isMobileDevice()
             ? CameraMode.Top
             : CameraMode.Default;
         await this.cameraComponent.load(this.scene, initialCameraMode);
+        this.inputStrategies = [
+            new KeyboardInputStrategy(),
+            new PointerInputStrategy(this.renderer.domElement),
+        ];
 
         /* ********* Models ***********  */
         await this.spaceCraft.load(this.scene);
@@ -85,6 +88,9 @@ export class Game {
     }
 
     private async update() {
+        const commands = this.inputStrategies.flatMap((strategy) => strategy.readCommands());
+        commands.forEach((command) => command.execute(this.spaceCraft));
+
         this.stars.update();
         this.gameOverText.update();
         this.spaceCraft.update();
