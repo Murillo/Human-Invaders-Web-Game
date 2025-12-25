@@ -8,6 +8,7 @@ import { TextComponent } from './components/models/TextComponent';
 import { ShootComponent } from './components/models/ShootComponent';
 import { CameraComponent, CameraMode } from './components/models/CameraComponent';
 import { Device } from './util/Device';
+import { Screen } from './util/Screen';
 
 export class Game {
     private container: HTMLElement;
@@ -46,6 +47,10 @@ export class Game {
         this.renderer.setClearColor('#191644');
         this.renderer.shadowMap.enabled = true;
         this.container.appendChild(this.renderer.domElement);
+        this.renderer.domElement.addEventListener('pointerdown', (event: PointerEvent): void => {
+            const isLeftSide = Screen.isLeftHalf(event, this.renderer.domElement);
+            this.spaceCraft.moveByClick(isLeftSide ? 'left' : 'right');
+        });
         const initialCameraMode: CameraMode = Device.isMobileDevice()
             ? CameraMode.Top
             : CameraMode.Default;

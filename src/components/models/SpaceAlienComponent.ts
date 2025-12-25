@@ -4,7 +4,7 @@ import { SpaceCraftDownRotationAnimation } from '../animations/SpaceCraftDownRot
 import { SpaceCraftLeftRotationAnimation } from '../animations/SpaceCraftLeftRotationAnimation';
 import { SpaceCraftRightRotationAnimation } from '../animations/SpaceCraftRightRotationAnimation';
 import { SpaceCraftTopRotationAnimation } from '../animations/SpaceCraftTopRotationAnimation';
-import { Euler, Group, Object3DEventMap, Scene, Vector3, Box3 } from 'three';
+import { Euler, Group, Scene, Box3 } from 'three';
 import { ICollision } from '../interfaces/ICollision';
 import { MODEL } from '../../library/game/assets';
 
@@ -95,6 +95,32 @@ export class SpaceAlienComponent extends SpaceComponentBase implements ICollisio
         const wasShotTriggered = this._shotTriggered;
         this._shotTriggered = false;
         return wasShotTriggered;
+    }
+
+    /**
+     * Move the space craft horizontally based on a screen click/tap.
+     * Left clicks move left; right clicks move right.
+     * @param {'left' | 'right'} direction
+     */
+    public moveByClick(direction: 'left' | 'right'): void {
+        const _maxRotationAngleNegative: number = -0.4;
+        const _maxRotationAnglePositive: number = 0.4;
+        this._enableOriginalRotationMovement = false;
+
+        if (direction === 'left') {
+            this._positions.x -= this._speedMovement;
+            if (this._rotation.z < _maxRotationAnglePositive) {
+                this._rotation.z += this._rotationMovement;
+            }
+        } else {
+            this._positions.x += this._speedMovement;
+            if (this._rotation.z > _maxRotationAngleNegative) {
+                this._rotation.z -= this._rotationMovement;
+            }
+        }
+        setTimeout(() => {
+            this._enableOriginalRotationMovement = true;
+        }, 120);
     }
 
     /**
