@@ -1,10 +1,7 @@
 import { InputStrategy } from './InputStrategy';
-import { Command } from '../commands/Command';
-import { MoveLeftCommand } from '../commands/MoveLeftCommand';
-import { MoveRightCommand } from '../commands/MoveRightCommand';
-import { StopCommand } from '../commands/StopCommand';
 import { Screen } from '../util/Screen';
 import { Bounds } from '../types/Bounds';
+import { Command, FireCommand, MoveLeftCommand, MoveRightCommand, StopCommand } from '../commands';
 
 export class PointerInputStrategy implements InputStrategy {
     private readonly element: HTMLElement;
@@ -39,6 +36,7 @@ export class PointerInputStrategy implements InputStrategy {
         const target = this.getTargetBounds();
         const side = Screen.isLeftHalf(event, this.element, target.centerX, target.width);
         if (side === null) {
+            this.queuedCommands.push(new FireCommand());
             return;
         }
         const isLeftSide = side === true;
