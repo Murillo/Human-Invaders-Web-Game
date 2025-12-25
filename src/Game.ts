@@ -10,15 +10,14 @@ import { CameraComponent, CameraMode } from './components/models/CameraComponent
 import { Device } from './util/Device';
 
 export class Game {
-
-    private container : HTMLElement;
+    private container: HTMLElement;
     private scene: THREE.Scene;
     private renderer: THREE.WebGLRenderer;
     private cameraComponent: CameraComponent;
     private width = window.innerWidth;
     private height = window.innerHeight;
     private spaceCraft: SpaceAlienComponent;
-    private stars: StarsComponent
+    private stars: StarsComponent;
     private components: SpaceComponentBase[] = [];
     private gameOverText: TextComponent;
     private shootComponents: ShootComponent[] = [];
@@ -41,27 +40,30 @@ export class Game {
         this.cameraComponent = new CameraComponent(() => this.spaceCraft.positions);
     }
 
-    public async load() : Promise<void> {
+    public async load(): Promise<void> {
         /* ********* Initial Setup ***********  */
         this.renderer.setSize(this.width, this.height);
-        this.renderer.setClearColor("#191644");
+        this.renderer.setClearColor('#191644');
         this.renderer.shadowMap.enabled = true;
         this.container.appendChild(this.renderer.domElement);
-        const initialCameraMode: CameraMode = Device.isMobileDevice() ? CameraMode.Top : CameraMode.Default;
+        const initialCameraMode: CameraMode = Device.isMobileDevice()
+            ? CameraMode.Top
+            : CameraMode.Default;
         await this.cameraComponent.load(this.scene, initialCameraMode);
-    
+
         /* ********* Models ***********  */
         await this.spaceCraft.load(this.scene);
         await this.stars.load(this.scene);
         await this.gameOverText.load(this.scene);
         for (let i = 0; i < this.initialNumberEnemies; i++) {
             const spaceShuttle = await SpaceShuttleComponent.create(
-                this.scene, 
-                this.limitsPositionEnemy);
+                this.scene,
+                this.limitsPositionEnemy
+            );
             this.components.push(spaceShuttle);
         }
         /* ***************************** */
-    
+
         /* ********* Object Axes *********** */
         const searchParams = new URLSearchParams(window.location.search);
         if (searchParams.has('axes')) {
@@ -69,7 +71,7 @@ export class Game {
             this.scene.add(axesHelper);
         }
         /* ***************************** */
-        
+
         /* ************ Light ************** */
         const light = new THREE.DirectionalLight('white', 5);
         light.position.set(10, 10, 10);
@@ -90,7 +92,7 @@ export class Game {
             this.shootComponents.push(shoot);
         }
 
-        this.shootComponents.forEach(item => item.update());
+        this.shootComponents.forEach((item) => item.update());
         for (let i = 0; i < this.components.length; i++) {
             this.components[i].update();
 
@@ -112,9 +114,10 @@ export class Game {
                     this.spaceCraft.addScore(10);
 
                     const newSpaceShuttle = await SpaceShuttleComponent.create(
-                        this.scene, 
+                        this.scene,
                         this.limitsPositionEnemy,
-                        nextSpaceSpeed);
+                        nextSpaceSpeed
+                    );
                     this.components.push(newSpaceShuttle);
 
                     break;
@@ -128,13 +131,13 @@ export class Game {
         }
     }
 
-    public start() :void {
+    public start(): void {
         const render = () => {
             this.renderer.render(this.scene, this.cameraComponent.instance);
-            this.update();  // Update game components such as spaceCraft, stars, etc.
+            this.update(); // Update game components such as spaceCraft, stars, etc.
             TWEEN.update(); // Update the tweening library
             requestAnimationFrame(render);
-        }
+        };
         requestAnimationFrame(render);
-    } 
+    }
 }

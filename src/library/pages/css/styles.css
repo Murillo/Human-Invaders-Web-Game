@@ -1,181 +1,184 @@
 ﻿* {
-	margin: 0px;
-	padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 /* Font */
 @font-face {
     font-family: Guardians;
-    src: url("../font/Guardians.ttf");
+    src: url('../font/Guardians.ttf');
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 /* Pages */
-body, html {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-family: Arial, sans-serif;
-	overflow-x: hidden;
-	overflow-y: hidden;
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .background {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: url('../images/game-image-1.jpeg') no-repeat center center fixed;
-	background-size: cover;
-	z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/game-image-1.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1;
 }
 
 .container-wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .container {
-	text-align: center;
-	color: white;
-	background-color: rgba(0, 0, 0, 0.6);
-	padding: 20px;
-	border-radius: 10px;
-	width: 80%;
-	max-width: 400px;
-	z-index: 1;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    z-index: 1;
 }
 
 .github-ribbon {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 150px;
-	height: 150px;
-	z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    z-index: 2;
 }
 
 .github-ribbon img {
-	width: 100%;
-	height: auto;
+    width: 100%;
+    height: auto;
 }
 
 h1 {
-	font-family: Guardians;
-	font-size: 2em;
-	margin-bottom: 50px;
+    font-family: Guardians;
+    font-size: 2em;
+    margin-bottom: 50px;
 }
 
 ul {
-	list-style: none;
-	padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 ul li {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 ul li a {
-	font-family: Guardians;
-	text-decoration: none;
-	font-size: 1em;
-	color: white;
-	padding: 10px 20px;
-	border: 2px solid white;
-	border-radius: 5px;
-	display: inline-block;
-	width: 100%;
-	box-sizing: border-box;
-	transition: background-color 0.3s, color 0.3s;
+    font-family: Guardians;
+    text-decoration: none;
+    font-size: 1em;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid white;
+    border-radius: 5px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
 }
 
 ul li a:hover {
-	background-color: white;
-	color: black;
-	text-decoration: none;
+    background-color: white;
+    color: black;
+    text-decoration: none;
 }
 
 @media (max-width: 768px) {
-	h1 {
-		font-size: 2.5em;
-	}
+    h1 {
+        font-size: 2.5em;
+    }
 
-	ul li a {
-		font-size: 1.2em;
-	}
+    ul li a {
+        font-size: 1.2em;
+    }
 }
 
 @media (max-width: 480px) {
-	h1 {
-		font-size: 2em;
-	}
+    h1 {
+        font-size: 2em;
+    }
 
-	ul li a {
-		font-size: 1em;
-	}
+    ul li a {
+        font-size: 1em;
+    }
 }
 
 .menu-game {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	background: linear-gradient(to bottom, black, #212121);
-	color: white;
-	padding: 15px 20px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	z-index: 1000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, black, #212121);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
 }
 
 /* Estilo para o nome do site */
 .menu-game .game-name {
-	font-size: 20px;
-	font-weight: bold;
-	font-family: Guardians;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Guardians;
 }
 
-.menu-game .game-name a{
-	color: #FFF;
+.menu-game .game-name a {
+    color: #fff;
 }
-.menu-game .game-name a:hover{
-	color: #DDD;
-	text-decoration: none;
+.menu-game .game-name a:hover {
+    color: #ddd;
+    text-decoration: none;
 }
 
 /* Estilo para as opções de menu */
 .menu-game ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }
 
 .menu-game ul li {
-	margin-left: 20px;
+    margin-left: 20px;
 }
 
 .menu-game ul li a {
-	color: white;
-	text-decoration: none;
-	font-size: 16px;
-	padding: 5px 10px;
-	transition: background-color 0.3s;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
 }
 
 .menu-game ul li a:hover {
-	background-color: #555;
-	border-radius: 4px;
+    background-color: #555;
+    border-radius: 4px;
 }
 
 /* Media query para dispositivos móveis (largura máxima de 768px) */
@@ -188,6 +191,7 @@ ul li a:hover {
     .menu-game .game-name {
         font-size: 18px;
         margin-bottom: 10px;
+        margin-top: 10px;
     }
 
     .menu-game ul {
@@ -222,206 +226,213 @@ ul li a:hover {
 }
 
 #container {
-	width: 600px;
-	height: 600px;
+    width: 600px;
+    height: 600px;
 }
-	
+
 #main {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	position: relative;
-	padding: 0;
-	box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0;
+    box-sizing: border-box;
 }
-#menu{
-	width: 100%;
-	min-height: 50px;
-	position: absolute;
-	background: transparent;
-	left: 0;
-	right: 0;
-	margin: 0;
-	bottom: 0px;
-	color: white;
-	font-family: Guardians;
-	display: flex;
-	align-items: stretch;
-	justify-content: center;
-	gap: 0;
+#menu {
+    width: 100%;
+    min-height: 50px;
+    position: absolute;
+    background: transparent;
+    left: 0;
+    right: 0;
+    margin: 0;
+    bottom: 0px;
+    color: white;
+    font-family: Guardians;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
 }
 
 #gameContainer {
-	width: 100%;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	background: #191644;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #191644;
 }
 
 #game {
-	flex: 1;
+    flex: 1;
 }
 
 #menu .left-menu {
-	width: 0;
-	height: 0;
-	border-top: 0px solid transparent;
-	border-right: 0px solid #222222;
-	border-bottom: 0px solid transparent;
-	float: left;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-right: 0px solid #222222;
+    border-bottom: 0px solid transparent;
+    float: left;
 }
-#menu .center-menu{
-	background: #222222;
-	flex: 1;
-	min-height: 50px;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 0 12px;
+#menu .center-menu {
+    background: #222222;
+    flex: 1;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
 }
-#menu .center-menu .text{
-	min-width: 60px;
-	margin: 0;
+#menu .center-menu .text {
+    min-width: 60px;
+    margin: 0;
 }
-#menu .center-menu .result{
-	min-width: 120px;
-	margin: 0;
+#menu .center-menu .result {
+    min-width: 120px;
+    margin: 0;
 }
-#menu .center-menu .value{
-	min-width: 60px;
+#menu .center-menu .value {
+    min-width: 60px;
 }
-#menu .center-menu progress{
-	width: 80%;
-	height: 15px;
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#88c66d+0,299a0b+100 */
-	background: #88c66d; /* Old browsers */
-	background: -moz-linear-gradient(left,  #88c66d 0%, #299a0b 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(left,  #88c66d 0%,#299a0b 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to right,  #88c66d 0%,#299a0b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88c66d', endColorstr='#299a0b',GradientType=1 ); /* IE6-9 */
-
+#menu .center-menu progress {
+    width: 80%;
+    height: 15px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#88c66d+0,299a0b+100 */
+    background: #88c66d; /* Old browsers */
+    background: -moz-linear-gradient(left, #88c66d 0%, #299a0b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+        left,
+        #88c66d 0%,
+        #299a0b 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+        to right,
+        #88c66d 0%,
+        #299a0b 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88c66d', endColorstr='#299a0b',GradientType=1 ); /* IE6-9 */
 }
 
 @media (max-width: 768px) {
-	#main {
-		padding: 0 12px 90px 12px;
-	}
+    #main {
+        padding: 0 12px 90px 12px;
+    }
 
-	#menu {
-		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		flex-direction: column;
-		align-items: stretch;
-		margin: 0;
-		max-width: none;
-		z-index: 900;
-		padding: 0 12px 12px 12px;
-	}
+    #menu {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        align-items: stretch;
+        margin: 0;
+        max-width: none;
+        z-index: 900;
+        padding: 0 12px 12px 12px;
+    }
 
-	#menu .left-menu,
-	#menu .right-menu {
-		display: none;
-	}
+    #menu .left-menu,
+    #menu .right-menu {
+        display: none;
+    }
 
-	#menu .center-menu {
-		border-radius: 6px;
-		display: grid;
-		grid-template-columns: auto 1fr;
-		align-items: center;
-		gap: 8px 12px;
-		padding: 8px 12px;
-	}
+    #menu .center-menu {
+        border-radius: 6px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 8px 12px;
+        padding: 8px 12px;
+    }
 
-	#menu .center-menu .text,
-	#menu .center-menu .result,
-	#menu .center-menu .value {
-		flex: initial;
-	}
+    #menu .center-menu .text,
+    #menu .center-menu .result,
+    #menu .center-menu .value {
+        flex: initial;
+    }
 
-	#menu .center-menu progress {
-		width: 100%;
-	}
+    #menu .center-menu progress {
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
-	#main {
-		padding: 0 8px 100px 8px;
-	}
+    #main {
+        padding: 0 8px 100px 8px;
+    }
 
-	#menu .center-menu {
-		gap: 6px;
-		row-gap: 6px;
-		grid-template-columns: auto 1fr;
-	}
+    #menu .center-menu {
+        gap: 6px;
+        row-gap: 6px;
+        grid-template-columns: auto 1fr;
+    }
 
-	#menu .center-menu .text,
-	#menu .center-menu .result,
-	#menu .center-menu .value {
-		flex: initial;
-		text-align: left;
-	}
+    #menu .center-menu .text,
+    #menu .center-menu .result,
+    #menu .center-menu .value {
+        flex: initial;
+        text-align: left;
+    }
 }
 
 /* Modal */
-#modal{
-	display: none;
-	border: 1px solid #151515;
+#modal {
+    display: none;
+    border: 1px solid #151515;
     width: 600px;
     background: white;
     position: absolute;
     top: 50%;
     left: 50%;
-	margin-left: -250px;
-	margin-top: -200px;
-	border-radius: 5px;
-	box-shadow: 5px 5px 5px #151515;
-	z-index: 1;
+    margin-left: -250px;
+    margin-top: -200px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px #151515;
+    z-index: 1;
 }
-#modal .modal-header{
-	font-size: 16px;
-	font-weight: bolder;
-	height: 50px;
+#modal .modal-header {
+    font-size: 16px;
+    font-weight: bolder;
+    height: 50px;
 }
 
-#modal .modal-header .modal-title{
-	float: left;
+#modal .modal-header .modal-title {
+    float: left;
 }
-#modal .modal-header .modal-close{
-	float: right;
-	width: 16px;
-	height: 16px;
-	cursor: pointer;
-	background-image: url('../images/close.png'); ;
+#modal .modal-header .modal-close {
+    float: right;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-image: url('../images/close.png');
 }
 
 @media (max-width: 768px) {
-	#modal {
-		width: 90vw;
-		max-width: 600px;
-		max-height: 85vh;
-		left: 50%;
-		top: 50%;
-		margin: 0;
-		transform: translate(-50%, -50%);
-		overflow-y: auto;
-	}
+    #modal {
+        width: 90vw;
+        max-width: 600px;
+        max-height: 85vh;
+        left: 50%;
+        top: 50%;
+        margin: 0;
+        transform: translate(-50%, -50%);
+        overflow-y: auto;
+    }
 
-	#modal .modal-header,
-	#modal .modal-body {
-		padding: 12px;
-	}
+    #modal .modal-header,
+    #modal .modal-body {
+        padding: 12px;
+    }
 }
 
 /* Game image start */
-.game-images{
-	background-image: url('../images/game-image-1.jpeg');
-    background-size: cover; 
+.game-images {
+    background-image: url('../images/game-image-1.jpeg');
+    background-size: cover;
     background-repeat: no-repeat;
-	background-position: center;
+    background-position: center;
     width: 100% !important;
     height: calc(100vh - 50px) !important;
-	filter: brightness(75%);
+    filter: brightness(75%);
 }

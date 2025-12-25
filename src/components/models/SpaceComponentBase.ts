@@ -1,8 +1,8 @@
-import { Scene, Group, Object3DEventMap, Mesh, Vector3 } from "three";
-import { GameComponentBase } from "../GameComponentBase";
-import { IDispose } from "../interfaces/IDispose";
+import { Scene, Group, Object3DEventMap, Mesh, Vector3 } from 'three';
+import { GameComponentBase } from '../GameComponentBase';
+import { IDispose } from '../interfaces/IDispose';
 
-export abstract class SpaceComponentBase extends GameComponentBase implements IDispose{
+export abstract class SpaceComponentBase extends GameComponentBase implements IDispose {
     private _life: number = 1;
     protected _rotation: Vector3 = new Vector3(0, 0, 0);
     protected _positions: Vector3 = new Vector3(0, 0, 0);

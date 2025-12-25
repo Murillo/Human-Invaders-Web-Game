@@ -1,5 +1,5 @@
-import { AnimationBase } from "./AnimationBase";
-import { Group, Object3DEventMap } from "three";
+import { AnimationBase } from './AnimationBase';
+import { Group, Object3DEventMap } from 'three';
 
 export class SpaceCraftDownRotationAnimation extends AnimationBase {
     private _angleReference: number = 0;

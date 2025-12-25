@@ -1,5 +1,5 @@
-import { Scene } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Scene } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 /**
  * Abstract base class for game components.
@@ -16,7 +16,7 @@ export abstract class GameComponentBase {
      */
     constructor(state: boolean = false) {
         this.state = state;
-     }
+    }
 
     /**
      * Method to load the model and add it to the scene
@@ -24,7 +24,6 @@ export abstract class GameComponentBase {
      * @returns {Promise<void>}
      */
     public abstract load(scene: Scene): Promise<void>;
-
 
     /**
      * Method to update the model such as position, rotation, etc.

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { GameComponentBase } from "../GameComponentBase";
-import { MODEL } from "../../library/game/assets";
+import { GameComponentBase } from '../GameComponentBase';
+import { MODEL } from '../../library/game/assets';
 
 /**
  * Class to represent the stars model and its animations.
@@ -12,7 +12,7 @@ export class StarsComponent extends GameComponentBase {
     constructor(total: number = 5000) {
         super();
         this._total = total;
-        this._particleSystem =  new THREE.Points();
+        this._particleSystem = new THREE.Points();
     }
 
     public async load(scene: THREE.Scene): Promise<void> {
@@ -33,11 +33,12 @@ export class StarsComponent extends GameComponentBase {
         scene.add(this._particleSystem);
     }
 
-    public update(): void { 
-        const positions = this._particleSystem.geometry.attributes.position.array as THREE.TypedArray;
+    public update(): void {
+        const positions = this._particleSystem.geometry.attributes.position
+            .array as THREE.TypedArray;
         for (var i = 0; i < positions.length; i += 3) {
             positions[i] += Math.random() * 0.005 - 0.005; // x
-            positions[i + 1] += 0  // y
+            positions[i + 1] += 0; // y
             positions[i + 2] += 0; // z
         }
         this._particleSystem.geometry.attributes.position.needsUpdate = true;

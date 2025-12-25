@@ -1,17 +1,17 @@
-import { 
-    Raycaster, 
-    Group, 
-    Mesh, 
-    MeshBasicMaterial, 
-    Object3DEventMap, 
-    Scene, 
-    SphereGeometry, 
-    Vector3 
-} from "three";
-import { Tween } from "@tweenjs/tween.js";
-import { GameComponentBase } from "../GameComponentBase";
-import { ICollision } from "../interfaces/ICollision";
-import { IDispose } from "../interfaces/IDispose";
+import {
+    Raycaster,
+    Group,
+    Mesh,
+    MeshBasicMaterial,
+    Object3DEventMap,
+    Scene,
+    SphereGeometry,
+    Vector3,
+} from 'three';
+import { Tween } from '@tweenjs/tween.js';
+import { GameComponentBase } from '../GameComponentBase';
+import { ICollision } from '../interfaces/ICollision';
+import { IDispose } from '../interfaces/IDispose';
 
 /**
  * Class to represent the shot model and its animations triggered by some space comoponent.
@@ -25,7 +25,7 @@ export class ShootComponent extends GameComponentBase implements ICollision, IDi
     private _heightSegments: number = 16;
     private _color: number = 0xffff00; // yellow
     private _removeFromScene: boolean = false;
-    private _limitDistance: number = -50;    
+    private _limitDistance: number = -50;
     private _fadeTime: number = 500; // 0.5 seconds
 
     /**
@@ -40,12 +40,16 @@ export class ShootComponent extends GameComponentBase implements ICollision, IDi
 
     public async load(scene: Scene): Promise<void> {
         this._scene = scene;
-        const geometry = new SphereGeometry(this._radius, this._widthSegments, this._heightSegments); 
-        const material = new MeshBasicMaterial( { 
+        const geometry = new SphereGeometry(
+            this._radius,
+            this._widthSegments,
+            this._heightSegments
+        );
+        const material = new MeshBasicMaterial({
             color: this._color,
-            transparent: true
-        }); 
-        this._sphere = new Mesh(geometry, material); 
+            transparent: true,
+        });
+        this._sphere = new Mesh(geometry, material);
         this._sphere.position.set(this._position.x, this._position.y, this._position.z);
         this._scene.add(this._sphere);
         Promise.resolve();
@@ -55,7 +59,7 @@ export class ShootComponent extends GameComponentBase implements ICollision, IDi
         this._sphere.position.z -= 1;
         if (!this._removeFromScene && this._sphere.position.z < this._limitDistance) {
             new Tween(this._sphere.material)
-                .to({opacity: 0}, this._fadeTime) // 2 seconds
+                .to({ opacity: 0 }, this._fadeTime) // 2 seconds
                 .onComplete(() => this._scene?.remove(this._sphere))
                 .start();
             this._removeFromScene = true;

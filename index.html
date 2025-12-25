@@ -1,87 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Human Invaders</title>
-    <meta name="description" content="">
-    <meta name="author" content="Murillo">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./src/library/pages/css/bootstrap.min.css">
-    <link href="./src/library/pages/css/styles.css" type="text/css" rel="stylesheet" />
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <title>Human Invaders</title>
+        <meta name="description" content="" />
+        <meta name="author" content="Murillo" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./src/library/pages/css/bootstrap.min.css" />
+        <link href="./src/library/pages/css/styles.css" type="text/css" rel="stylesheet" />
+    </head>
 
-<body>
-
-	<!-- Start Page -->
-	<div id="menuContainer">
-		<div class="background"></div>
-		<div class="github-ribbon">
-			<a href="https://github.com/Murillo/Human-Invaders-Web-Game" target="_blank">
-				<img decoding="async" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_white_ffffff.png" class="attachment-full size-full" alt="Fork me on GitHub" loading="lazy">
-			</a>
-		</div>
-		<div class="container-wrapper">
-			<div class="container">
-				<h1>Human Invaders</h1>
-				<ul>
-					<li><a href="#">Start</a></li>
-					<li><a href="#" class="open-modal">About</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<!-- Game Page -->
-    <div id="gameContainer" class="hidden" >
-		<div class="menu-game">
-			<!-- Name of the game -->
-			<div class="game-name">
-				<a href="/">Human Invaders</a>
-			</div>
-			
-			<!-- Game Menu -->
-			<ul class="hidden">
-				<li><a href="#">Option 1</a></li>
-			</ul>
-		</div>
-
-        <div id="main">
-			<div id="menu">
-				<div class="left-menu"></div>
-				<div class="center-menu">
-					<div class="text">Life:</div>
-					<div class="result">
-						<progress id="life" value="100" max="100">
-					</div>
-					<div class="text">Shots:</div>
-					<div id="shots" class="result value"></div>
-					<div class="text">Score:</div>
-					<div id="score" class="result value">0</div>
-				</div>
-				<div class="right-menu"></div>
-			</div>
-			<div id="game"></div>
+    <body>
+        <!-- Start Page -->
+        <div id="menuContainer">
+            <div class="background"></div>
+            <div class="github-ribbon">
+                <a href="https://github.com/Murillo/Human-Invaders-Web-Game" target="_blank">
+                    <img
+                        decoding="async"
+                        width="149"
+                        height="149"
+                        src="https://github.blog/wp-content/uploads/2008/12/forkme_left_white_ffffff.png"
+                        class="attachment-full size-full"
+                        alt="Fork me on GitHub"
+                        loading="lazy"
+                    />
+                </a>
+            </div>
+            <div class="container-wrapper">
+                <div class="container">
+                    <h1>Human Invaders</h1>
+                    <ul>
+                        <li><a href="#">Start</a></li>
+                        <li><a href="#" class="open-modal">About</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-	
-	<div id="modal">
-		<div class="modal-header">
-			<div class="modal-title">The story</div>
-			<div class="modal-close">
-			</div>
-		</div>
-		<div class="modal-body">
-			<p>In the distant reaches of space, the planet of the Xerthians faces an existential threat from the relentless advance of human forces. In "Human Invaders," players take on the role of Xelar, one of the last remaining pilots of the Xerthian fleet. With his advanced spacecraft, the Phoenix, Xelar embarks on a perilous mission to repel the human incursion and defend his homeworld.</p>
 
-			<p>As players guide Xelar through intense space battles and dangerous missions, they must employ cunning tactics and quick reflexes to outmaneuver their human adversaries. From engaging in dogfights amidst asteroid fields to launching covert raids on enemy outposts, every decision is crucial in the fight for survival.</p>
+        <!-- Game Page -->
+        <div id="gameContainer" class="hidden">
+            <div class="menu-game">
+                <!-- Name of the game -->
+                <div class="game-name">
+                    <a href="/">Human Invaders</a>
+                </div>
 
-			<p>As Xelar delves deeper into the conflict, he uncovers the true motivations behind the human invasion—a ruthless quest for domination and exploitation of the planet's resources. Fueled by greed and ambition, the human forces show no mercy in their pursuit of conquest.</p>
+                <!-- Game Menu -->
+                <ul class="hidden">
+                    <li><a href="#">Option 1</a></li>
+                </ul>
+            </div>
 
-			<p>In the climactic showdown aboard the human flagship, the Leviathan, Xelar confronts the enemy commander in a final, epic battle to decide the fate of their planet. With explosions lighting up the void of space, players must summon all their skills to emerge victorious and ensure the survival of the Xerthian species against the relentless onslaught of the human invaders.</p>
-		</div>
-	</div>
-	
-	<script type="module" src="./src/main.js"></script>
-	
-</body>
+            <div id="main">
+                <div id="menu">
+                    <div class="left-menu"></div>
+                    <div class="center-menu">
+                        <div class="text">Life:</div>
+                        <div class="result">
+                            <progress id="life" value="100" max="100"></progress>
+                        </div>
+                        <div class="text">Shots:</div>
+                        <div id="shots" class="result value"></div>
+                        <div class="text">Score:</div>
+                        <div id="score" class="result value">0</div>
+                    </div>
+                    <div class="right-menu"></div>
+                </div>
+                <div id="game"></div>
+            </div>
+        </div>
+
+        <div id="modal">
+            <div class="modal-header">
+                <div class="modal-title">The story</div>
+                <div class="modal-close"></div>
+            </div>
+            <div class="modal-body">
+                <p>
+                    In the distant reaches of space, the planet of the Xerthians faces an
+                    existential threat from the relentless advance of human forces. In "Human
+                    Invaders," players take on the role of Xelar, one of the last remaining pilots
+                    of the Xerthian fleet. With his advanced spacecraft, the Phoenix, Xelar embarks
+                    on a perilous mission to repel the human incursion and defend his homeworld.
+                </p>
+
+                <p>
+                    As players guide Xelar through intense space battles and dangerous missions,
+                    they must employ cunning tactics and quick reflexes to outmaneuver their human
+                    adversaries. From engaging in dogfights amidst asteroid fields to launching
+                    covert raids on enemy outposts, every decision is crucial in the fight for
+                    survival.
+                </p>
+
+                <p>
+                    As Xelar delves deeper into the conflict, he uncovers the true motivations
+                    behind the human invasion—a ruthless quest for domination and exploitation of
+                    the planet's resources. Fueled by greed and ambition, the human forces show no
+                    mercy in their pursuit of conquest.
+                </p>
+
+                <p>
+                    In the climactic showdown aboard the human flagship, the Leviathan, Xelar
+                    confronts the enemy commander in a final, epic battle to decide the fate of
+                    their planet. With explosions lighting up the void of space, players must summon
+                    all their skills to emerge victorious and ensure the survival of the Xerthian
+                    species against the relentless onslaught of the human invaders.
+                </p>
+            </div>
+        </div>
+
+        <script type="module" src="./src/main.js"></script>
+    </body>
 </html>

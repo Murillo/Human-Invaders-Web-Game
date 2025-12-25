@@ -1,4 +1,4 @@
 export interface IModelConfig {
-    name: string, 
-    path: string
+    name: string;
+    path: string;
 }

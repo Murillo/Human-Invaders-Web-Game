@@ -1,9 +1,9 @@
-import { ColorRepresentation, Group, Mesh, MeshBasicMaterial, Scene, Vector3 } from "three";
-import { GameComponentBase } from "../GameComponentBase";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
-import { Tween } from "@tweenjs/tween.js";
-import { FONTS } from "../../library/game/assets";
+import { ColorRepresentation, Group, Mesh, MeshBasicMaterial, Scene, Vector3 } from 'three';
+import { GameComponentBase } from '../GameComponentBase';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import { Tween } from '@tweenjs/tween.js';
+import { FONTS } from '../../library/game/assets';
 
 export class TextComponent extends GameComponentBase {
     private _isLoaded: boolean = false;
@@ -20,10 +20,10 @@ export class TextComponent extends GameComponentBase {
         super();
         this._text = text;
         this._position = position;
-        this._material = new MeshBasicMaterial({ 
+        this._material = new MeshBasicMaterial({
             color: this._color,
-            transparent: transparent, 
-            opacity: opacity
+            transparent: transparent,
+            opacity: opacity,
         });
     }
 
@@ -38,7 +38,7 @@ export class TextComponent extends GameComponentBase {
             bevelEnabled: true,
             bevelThickness: 1,
             bevelSize: 0.25,
-            bevelSegments: 3
+            bevelSegments: 3,
         });
         const mesh = new Mesh(geometry, this._material);
         mesh.position.set(this._position.x, this._position.y, this._position.z);
@@ -49,9 +49,7 @@ export class TextComponent extends GameComponentBase {
     public update(): void {
         if (this._isLoaded && this._enable) {
             this._enable = false;
-            new Tween(this._material)
-                .to({ opacity: 1 }, 1000)
-                .start();
+            new Tween(this._material).to({ opacity: 1 }, 1000).start();
         }
     }
 
