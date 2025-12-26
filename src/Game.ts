@@ -29,8 +29,8 @@ export class Game {
     private speedIncreaseRate: number = 1.25;
     private sceneLimit: THREE.Vector3 = new THREE.Vector3(0, 0, 10);
     private limitsPositionEnemy = [
-        new THREE.Vector3(-15, -10, -100),
-        new THREE.Vector3(15, 15, -50),
+        new THREE.Vector3(-15, 0, -100),
+        new THREE.Vector3(15, 0, -50),
     ];
     private inputStrategies: InputStrategy[] = [];
 
