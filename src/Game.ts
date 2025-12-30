@@ -28,10 +28,7 @@ export class Game {
     private initialNumberEnemies: number = 1;
     private speedIncreaseRate: number = 1.25;
     private sceneLimit: THREE.Vector3 = new THREE.Vector3(0, 0, 10);
-    private limitsPositionEnemy = [
-        new THREE.Vector3(-15, 0, -100),
-        new THREE.Vector3(15, 0, -50),
-    ];
+    private limitsPositionEnemy: THREE.Vector3[] = [];
     private inputStrategies: InputStrategy[] = [];
 
     constructor(container: HTMLElement) {
@@ -55,6 +52,7 @@ export class Game {
             ? CameraMode.Top
             : CameraMode.Default;
         await this.cameraComponent.load(this.scene, initialCameraMode);
+        this.limitsPositionEnemy = Screen.recalculateEnemyLimits(this.cameraComponent.instance);
         this.inputStrategies = [
             new KeyboardInputStrategy(),
             new PointerInputStrategy(this.renderer.domElement, () =>

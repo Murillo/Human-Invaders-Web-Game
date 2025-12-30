@@ -7,7 +7,7 @@
     "build": "tsc && npx vite build",
     "start": "npx vite --port 3000",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier:format": "prettier --write \"src/**/*.{ts,js,css,html}\" index.html"
+    "prettier:format": "prettier --write \"src/**/*.{ts,js,css,html}\" \"!src/**/bootstrap.min.css\" index.html"
   },
   "keywords": [],
   "author": "Murillo Grübler",

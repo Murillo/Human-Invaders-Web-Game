@@ -267,7 +267,7 @@ ul li a:hover {
     flex: 1;
 }
 
-#game canvas{
+#game canvas {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
