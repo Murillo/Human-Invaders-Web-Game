@@ -93,9 +93,14 @@ export class Game {
     }
 
     private async update() {
+        // recalculate enemy limits in case of camera change
+        this.limitsPositionEnemy = Screen.recalculateEnemyLimits(this.cameraComponent.instance);
+
+        // Read input commands
         const commands = this.inputStrategies.flatMap((strategy) => strategy.readCommands());
         commands.forEach((command) => command.execute(this.spaceCraft));
 
+        // Update game components such as spaceCraft, stars, etc.
         this.stars.update();
         this.gameOverText.update();
         this.spaceCraft.update();
