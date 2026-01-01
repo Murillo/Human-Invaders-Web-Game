@@ -76,40 +76,56 @@ export class Screen {
      * @returns {THREE.Vector3[]} An array with two `THREE.Vector3` entries: [leftSpawnPosition, rightSpawnPosition].
      */
     public static recalculateEnemyLimits(camera: THREE.PerspectiveCamera): THREE.Vector3[] {
-        const spawnZMax = -35;
+        const spawnY = 0;
+        const bounds = this.getTopEdgeOnPlaneY(camera, spawnY);
+        const marginFactor = 0.6; // Reduce width to avoid spawning at extreme edges
+        const halfWidth = (bounds.width * marginFactor) / 2;
+        const spawnZMax = -40;
         const spawnZMin = -45;
-        const bounds = this.getScreenBoundsAtDepth(camera, spawnZMax);
         return [
-            new THREE.Vector3(bounds.centerX - bounds.width / 2, 0, spawnZMin),
-            new THREE.Vector3(bounds.centerX + bounds.width / 2, 0, spawnZMax),
+            new THREE.Vector3(bounds.centerX - halfWidth, spawnY, spawnZMin),
+            new THREE.Vector3(bounds.centerX + halfWidth, spawnY, spawnZMax),
         ];
     }
 
     /**
-     * Calculate the world-space horizontal bounds (X) of the camera's view at a specific Z depth.
+     * Calculate the world-space horizontal bounds (X) of the top edge of the viewport intersecting the plane Y = planeY.
      *
-     * This method unprojects normalized device coordinates (NDC) corners to world space,
-     * intersects the camera ray with the plane at the given Z, and returns the center X and width.
+     * This method unprojects the top corners of the viewport (NDC y = 1) to world space,
+     * intersects the camera rays with the plane Y = planeY, and returns the center X, width, and Z position.
      *
      * @private
      * @param {THREE.PerspectiveCamera} camera - The camera used to unproject screen corners.
-     * @param {number} z - The world Z coordinate where bounds should be computed.
-     * @returns {Bounds} An object with `centerX` (center X in world units) and `width` (width in world units).
+     * @param {number} planeY - The world Y coordinate of the plane to intersect (default 0).
+     * @returns {Bounds} An object with `centerX`, and `width`.
      */
-    private static getScreenBoundsAtDepth(camera: THREE.PerspectiveCamera, z: number): Bounds {
-        const ndcCorners = [new THREE.Vector2(-1, -1), new THREE.Vector2(1, 1)];
-        const xs: number[] = [];
+    private static getTopEdgeOnPlaneY(
+        camera: THREE.PerspectiveCamera,
+        planeY: number
+    ): Bounds {
+        const ndcTopCorners = [new THREE.Vector2(-1, 1), new THREE.Vector2(1, 1)];
+        const intersections: THREE.Vector3[] = [];
 
-        ndcCorners.forEach((corner) => {
+        ndcTopCorners.forEach((corner) => {
             const clipPosition = new THREE.Vector3(corner.x, corner.y, 1).unproject(camera);
             const direction = clipPosition.sub(camera.position);
-            const t = (z - camera.position.z) / direction.z;
+            if (Math.abs(direction.y) < 1e-5) {
+                return;
+            }
+            const t = (planeY - camera.position.y) / direction.y;
+            if (t <= 0) {
+                return;
+            }
             const intersection = camera.position.clone().add(direction.multiplyScalar(t));
-            xs.push(intersection.x);
+            intersections.push(intersection);
         });
 
-        const left = Math.min(...xs);
-        const right = Math.max(...xs);
+        if (intersections.length < 2) {
+            return { centerX: 0, width: 20 }; // Fallback values
+        }
+
+        const left = Math.min(intersections[0].x, intersections[1].x);
+        const right = Math.max(intersections[0].x, intersections[1].x);
         return {
             centerX: (left + right) / 2,
             width: Math.abs(right - left),
