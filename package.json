@@ -12,6 +12,9 @@
   "keywords": [],
   "author": "Murillo Grübler",
   "license": "ISC",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "dependencies": {
     "@tweenjs/tween.js": "^23.1.1",
     "three": "^0.160.0"
@@ -19,8 +22,8 @@
   "devDependencies": {
     "@types/three": "^0.160.0",
     "prettier": "^3.7.4",
-    "rollup": "^4.22.4",
+    "rollup": "^4.63.3",
     "typescript": "^5.3.3",
-    "vite": "^5.4.12"
+    "vite": "^7.3.6"
   }
 }

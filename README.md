@@ -11,13 +11,13 @@ Human Invaders for web is an experimental web game using Three.js.
 
 ## How to run
 ### Requirements
-* [Node 18.x](https://nodejs.org/en/download)
+* [Node 24.x](https://nodejs.org/en/download) (or run `nvm install` and `nvm use`)
 * [Docker](https://www.docker.com/products/docker-desktop/)
 
 ### Local
 Clone this project and perform the below commands:
 ```
-npm i
+npm ci
 npm start
 ```
 It is available in any moder browser via the url `http://localhost:3000`
